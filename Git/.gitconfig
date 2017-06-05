@@ -1,0 +1,58 @@
+[user]
+	name = Derek Nordgren
+[alias]
+	a = add -A
+	amend = commit -a --amend -S
+	# default master but arg1 can be any branch; remove all merged branches
+	bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+	bd = branch -d
+	bdone = "!f() { git checkout ${1-master} && git update && git bclean ${1-master}; }; f"
+	br = branch
+	bra = branch -a
+	c = commit -S
+	cl = clean -xdf
+	co = checkout
+	cp = cherry-pick
+	d = diff
+	ds = diff --staged
+	discard = checkout
+	f = fetch --prune
+	gr = log --graph
+	go = log --graph --pretty=oneline --abbrev-commit
+	l = pull --prune
+	last = log -1 HEAD
+	lol = log --graph --oneline --abbrev-commit
+	m = merge --no-ff --no-commit
+	nuke = !git add -A && git reset --hard
+	p = push
+	publish = push -u origin $1
+	revert = checkout
+	rollback = reset --mixed HEAD~1
+	s = status
+  st = add
+	stage = add
+	save = !git add -A && git commit -m 'SAVEPOINT'
+  # update = !git pull --prune $@ && git submodule update --init --recursive
+	unstage = reset
+	upsubs = submodule foreach git pull origin
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+	search = "!f() { git log --pretty=format:\"%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --grep=$1; }; f"
+[push]
+	default = current
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	process = git-lfs filter-process
+	required = true
+	smudge = git-lfs smudge -- %f
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+[merge]
+	conflictstyle = diff3
+[rerere]
+	enabled = 0
+[format]
+	signoff = true
+[commit]
+	gpgsign = false
+
