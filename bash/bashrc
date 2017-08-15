@@ -1,0 +1,26 @@
+# alias to Homebrew version of Vim (8.0)
+export PATH="/usr/local/opt/vim@8.0/bin:$PATH"
+
+# rearrange command prompt
+export PS1="\\[$(tput setaf 1)\\]\W\\[$(tput sgr0)\\]$ "
+
+# colors
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+alias ls='ls -lGFh'
+alias g='git'
+alias shit='sudo $(history -p \!\!)'
+alias whatmyip='ifconfig | grep "inet"'
+alias code='code-insiders'
+
+# git tab completion
+if [ -f ~/.git-completion.bash ]; then
+    ~/.git-completion.bash
+fi
+
+# Better Git prompt
+# source ~/.oh-my-git/prompt.sh
+
+# Default session start directory
+#cd ~/hudl-reports/Hudl.Reports.Webapp
