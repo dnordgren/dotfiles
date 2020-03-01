@@ -1,9 +1,10 @@
 ;; -*- mode: elisp -*-
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq require-final-newline t)
+
+(setq column-number-mode t)
+
 (package-initialize)
 
 (require 'package)
@@ -13,8 +14,8 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 (custom-set-variables
- '(org-agenda-files (quote ("/mnt/c/Users/derek/Downloads/org-2020-02-february.txt" "/mnt/c/Users/derek/Downloads/inbox.txt")))
- '(org-default-notes-file "/mnt/c/Users/derek/Downloads/notes.txt")
+ '(org-agenda-files (quote ("~/todo.org" "~/inbox.org")))
+ '(org-default-notes-file "~/notes.org")
  '(org-agenda-ndays 7)
  '(org-deadline-warning-days 14)
  '(org-agenda-show-all-dates t)
@@ -42,8 +43,8 @@
 				     (org-agenda-overriding-header "Unscheduled TODO entries: "))))))
  '(org-remember-store-without-prompt t)
  '(org-remember-templates
-   (quote ((116 "* TODO %?\n  %u" "/mnt/c/Users/derek/Downloads/org-2020-02-february.txt" "Tasks")
-	      (110 "* %u %?" "/mnt/c/Users/derek/Downloads/notes.txt" "Notes"))))
+   (quote ((116 "* TODO %?\n  %u" "~/todo.org" "Tasks")
+	      (110 "* %u %?" "~/notes.org" "Notes"))))
  '(remember-annotation-functions (quote (org-remember-annotation)))
  '(remember-handler-functions (quote (org-remember-handler)))
  '(package-selected-packages (quote (org))))
@@ -74,11 +75,12 @@
      (define-prefix-command 'org-todo-state-map)
 
      (define-key org-mode-map "\C-cx" 'org-todo-state-map)
-
      (define-key org-todo-state-map "x"
        #'(lambda nil (interactive) (org-todo "DONE")))
      (define-key org-todo-state-map "c"
        #'(lambda nil (interactive) (org-todo "CANCELLED")))
+     (define-key org-todo-state-map "m"
+       #'(lambda nil (interactive) (org-todo "MOVED")))
      (define-key org-todo-state-map "f"
        #'(lambda nil (interactive) (org-todo "DEFERRED")))
      (define-key org-todo-state-map "l"
@@ -97,3 +99,4 @@
 ;;;; Color theming
 ;; Monokai
 (load-theme 'monokai t)
+
