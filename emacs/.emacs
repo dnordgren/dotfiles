@@ -14,8 +14,8 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 (custom-set-variables
-  '(org-agenda-files (quote ("~/todo.org" "~/inbox.org")))
-  '(org-default-notes-file "~/notes.org")
+  '(org-agenda-files (quote ("~/agenda.org" "~/inbox.org" "~/rendezvous.org")))
+  '(org-default-notes-file "~/commonplace.org")
   '(org-agenda-ndays 7)
   '(org-deadline-warning-days 14)
   '(org-agenda-show-all-dates t)
@@ -26,8 +26,8 @@
   '(org-fast-tag-selection-single-key (quote expert))
   '(org-remember-store-without-prompt t)
   '(org-remember-templates
-    (quote ((116 "* TODO %?\n  %u" "~/todo.org" "Tasks")
-      (110 "* %u %?" "~/notes.org" "Notes"))))
+    (quote ((116 "* TODO %?\n  %u" "~/agenda.org" "Tasks")
+      (110 "* %u %?" "~/commonplace.org" "Notes"))))
   '(remember-annotation-functions (quote (org-remember-annotation)))
   '(remember-handler-functions (quote (org-remember-handler)))
   '(package-selected-packages (quote (org)))
