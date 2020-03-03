@@ -83,3 +83,8 @@
 ;; Monokai
 (load-theme 'monokai t)
 
+;; Auto-reload buffers from changed files
+(global-auto-revert-mode t)
+
+;; Auto-save buffers to files on loss of focus
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
