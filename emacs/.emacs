@@ -30,8 +30,8 @@
       (110 "* %u %?" "~/notes.org" "Notes"))))
   '(remember-annotation-functions (quote (org-remember-annotation)))
   '(remember-handler-functions (quote (org-remember-handler)))
-  '(package-selected-packages (quote (org))))
-(custom-set-faces)
+  '(package-selected-packages (quote (org)))
+  '(custom-enabled-themes (quote (misterioso))))
 
 ;; Disable the splash screen (to enable it agin, replace the t with 0)
 (setq inhibit-splash-screen t)
@@ -79,9 +79,13 @@
 
 (define-key global-map [(control meta ?r)] 'remember)
 
-;;;; Color theming
-;; Monokai
+;;;; Theming
+;; Monokai color theme
 (load-theme 'monokai t)
+
+;; Custom font face in GUI
+(custom-set-faces
+  '(default ((t (:family "Fira Code" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
 
 ;; Auto-reload buffers from changed files
 (global-auto-revert-mode t)
