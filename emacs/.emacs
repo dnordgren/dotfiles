@@ -45,7 +45,7 @@
 (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
 
 (setq org-todo-keywords
-  '((sequence "TODO" "STARTED" "DONE")))
+  '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "DELEGATED(g@)" "|" "DROPPED(x@)" "DONE(d!)")))
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -58,15 +58,11 @@
     (define-prefix-command 'org-todo-state-map)
 
     (define-key org-mode-map "\C-cx" 'org-todo-state-map)
-    (define-key org-todo-state-map "x"
+    (define-key org-todo-state-map "d"
       #'(lambda nil (interactive) (org-todo "DONE")))
-    (define-key org-todo-state-map "c"
-      #'(lambda nil (interactive) (org-todo "CANCELLED")))
-    (define-key org-todo-state-map "m"
-      #'(lambda nil (interactive) (org-todo "MOVED")))
-    (define-key org-todo-state-map "f"
-      #'(lambda nil (interactive) (org-todo "DEFERRED")))
-    (define-key org-todo-state-map "l"
+    (define-key org-todo-state-map "x"
+      #'(lambda nil (interactive) (org-todo "DROPPED")))
+    (define-key org-todo-state-map "g"
       #'(lambda nil (interactive) (org-todo "DELEGATED")))
     (define-key org-todo-state-map "w"
       #'(lambda nil (interactive) (org-todo "WAITING")))
@@ -92,3 +88,6 @@
 
 ;; Auto-save buffers to files on loss of focus
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+
+;; Display line numbers
+(global-display-line-numbers-mode)
