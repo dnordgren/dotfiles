@@ -5,6 +5,9 @@
 
 (setq column-number-mode t)
 
+(add-hook 'text-mode-hook 'auto-fill-mode)
+(setq-default fill-column 120)
+
 (package-initialize)
 
 (require 'package)
