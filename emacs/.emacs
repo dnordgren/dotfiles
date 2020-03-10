@@ -17,8 +17,7 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 (custom-set-variables
-  '(org-agenda-files (quote ("~/agenda.org" "~/inbox.org" "~/rendezvous.org")))
-  '(org-default-notes-file "~/commonplace.org")
+  '(org-agenda-files (quote ("~/org/agenda.org" "~/org/inbox.org" "~/org/rendezvous.org")))
   '(org-agenda-ndays 7)
   '(org-deadline-warning-days 14)
   '(org-agenda-show-all-dates t)
@@ -27,12 +26,6 @@
   '(org-agenda-start-on-weekday nil)
   '(org-reverse-note-order t)
   '(org-fast-tag-selection-single-key (quote expert))
-  '(org-remember-store-without-prompt t)
-  '(org-remember-templates
-    (quote ((116 "* TODO %?\n  %u" "~/agenda.org" "Tasks")
-      (110 "* %u %?" "~/commonplace.org" "Notes"))))
-  '(remember-annotation-functions (quote (org-remember-annotation)))
-  '(remember-handler-functions (quote (org-remember-handler)))
   '(package-selected-packages (quote (org)))
   '(custom-enabled-themes (quote (misterioso))))
 
@@ -50,9 +43,17 @@
 (setq org-todo-keywords
   '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@/!)" "DELEGATED(g@)" "|" "DROPPED(x@)" "DONE(d!)")))
 
+;; Configure org-capture
+(setq org-default-notes-file (concat org-directory "~/org/commonplace.org"))
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+
+(setq org-capture-templates
+  '(("t" "TODO" entry (file+headline "~/org/agenda.org" "Tasks")
+      "* TODO %?\n  %i\n  %a")
+    ("c" "Commonplace" entry (file+datetree "~/org/commonplace.org")
+      "* %?\nEntered on %U\n  %i\n  %a")))
 
 (define-key mode-specific-map [?a] 'org-agenda)
 
@@ -71,12 +72,6 @@
       #'(lambda nil (interactive) (org-todo "WAITING")))
     (define-key org-todo-state-map "s"
       #'(lambda nil (interactive) (org-todo "STARTED")))))
-
-(require 'remember)
-
-(add-hook 'remember-mode-hook 'org-remember-apply-template)
-
-(define-key global-map [(control meta ?r)] 'remember)
 
 ;;;; Theming
 ;; Monokai color theme
