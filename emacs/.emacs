@@ -16,6 +16,12 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
+;; Markdown mode
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 (custom-set-variables
   '(org-agenda-files (quote ("~/org/agenda.org" "~/org/rendezvous.org")))
   '(org-agenda-ndays 7)
