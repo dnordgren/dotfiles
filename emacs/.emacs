@@ -50,10 +50,10 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-capture-templates
-  '(("t" "TODO" entry (file+headline "~/org/agenda.org" "Tasks")
-      "* TODO %?\n  %i\n  %a")
+  '(("t" "TODO" entry (file+headline "~/org/agenda.org" "Inbox")
+      "* TODO %?\n [%U]"
     ("c" "Commonplace" entry (file+datetree "~/org/commonplace.org")
-      "* %?\nEntered on %U\n  %i\n  %a")))
+      "* %?\n [%U]")))
 
 (define-key mode-specific-map [?a] 'org-agenda)
 
