@@ -61,6 +61,9 @@
     ("c" "Commonplace" entry (file+datetree "~/org/commonplace.org")
       "* %?\n [%U]")))
 
+;; Configure org-refile subheading level depth
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
+
 (define-key mode-specific-map [?a] 'org-agenda)
 
 (eval-after-load "org"
