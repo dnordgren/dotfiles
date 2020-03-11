@@ -75,7 +75,12 @@
 
 ;;;; Theming
 ;; Monokai color theme
-(load-theme 'monokai t)
+;; (load-theme 'monokai t)
+
+;; Solarized color theme
+(load-theme 'solarized-dark t)
+;; Don't change the font for some headings and titles
+(setq solarized-use-variable-pitch nil)
 
 ;; Custom font face in GUI
 (custom-set-faces
