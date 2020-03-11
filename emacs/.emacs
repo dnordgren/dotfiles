@@ -79,6 +79,9 @@
     (define-key org-todo-state-map "s"
       #'(lambda nil (interactive) (org-todo "STARTED")))))
 
+(global-set-key (kbd "C-c o")
+    (lambda () (interactive) (find-file "~/org/agenda.org")))
+
 ;;;; Theming
 ;; Monokai color theme
 ;; (load-theme 'monokai t)
