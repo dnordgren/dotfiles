@@ -17,7 +17,7 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 (custom-set-variables
-  '(org-agenda-files (quote ("~/org/agenda.org" "~/org/inbox.org" "~/org/rendezvous.org")))
+  '(org-agenda-files (quote ("~/org/agenda.org" "~/org/rendezvous.org")))
   '(org-agenda-ndays 7)
   '(org-deadline-warning-days 14)
   '(org-agenda-show-all-dates t)
