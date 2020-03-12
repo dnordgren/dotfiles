@@ -4,7 +4,9 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
 
-    "defaultProfile": "{6e9fa4d2-a4aa-562d-b1fa-0789dc1f83d7}",
+    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+
+    "rowsToScroll": 1,
 
     "profiles":
     {
@@ -13,22 +15,23 @@
             // https://gist.github.com/kasuken/076d68b92e2a67dfda591587c77a40c0#file-profiles-json
             "colorScheme": "One Half Dark",
             "commandline": "wsl.exe",
-            "cursorShape": "filledBox",
-            "fontFace": "DankMono",
-            "fontSize": 15
+            "cursorShape": "bar",
+            "fontFace": "Fira Code",
+            "fontSize": 14,
+            "tabTitle": "GSD"
         },
         "list":
         [
             {
-                "guid": "{6e9fa4d2-a4aa-562d-b1fa-0789dc1f83d7}",
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
-                "name": "Wsl",
+                "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl"
             },
             {
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
-                "name": "PowerShell",
+                "name": "PowerShell Core",
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
@@ -81,8 +84,8 @@
     // Add any keybinding overrides to this array.
     // To unbind a default keybinding, set the command to "unbound"
     "keybindings": [
-        { "command": "closeTab", "keys": ["ctrl+w"] },
-        { "command": "newTab", "keys": ["ctrl+t"] },
+        { "command": "closeTab", "keys": ["ctrl+shift+w"] },
+        { "command": "newTab", "keys": ["ctrl+shift+t"] },
         { "command": "nextTab", "keys": ["ctrl+tab"] },
         { "command": "prevTab", "keys": ["ctrl+shift+tab"] },
         { "command": "copy", "keys": ["ctrl+shift+c"] },
