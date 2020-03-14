@@ -74,6 +74,9 @@
 
 (eval-after-load "org"
   '(progn
+    ;; Insert inactive date with C-c ;
+    (define-key org-mode-map (kbd "C-c ;") (org-time-stamp-inactive(current-time))
+
     (define-prefix-command 'org-todo-state-map)
 
     (define-key org-mode-map "\C-cx" 'org-todo-state-map)
