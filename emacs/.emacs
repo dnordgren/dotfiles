@@ -59,7 +59,7 @@
   '(("t" "TODO" entry (file+headline "~/org/agenda.org" "Inbox")
       "* TODO %?\n [%U]"
     ("c" "Commonplace" entry (file+datetree "~/org/commonplace.org")
-      "* %?\n [%U]")))
+      "* %?\n [%U]"))))
 
 ;; Configure org-refile subheading level depth
 (setq org-refile-targets '((org-agenda-files . (:maxlevel . 6))))
