@@ -471,9 +471,10 @@
         :desc "Tags search"                  "m" #'org-tags-view
         :desc "Org capture"                  "n" #'org-capture
         :desc "Active org-clock"             "o" #'org-clock-goto
-        :desc "Todo list"                    "t" #'org-todo-list
+        :desc "Org refile"                   "r" #'org-refile
         :desc "Search notes"                 "s" #'+default/org-notes-search
         :desc "Search org agenda headlines"  "S" #'+default/org-notes-headlines
+        :desc "Todo list"                    "t" #'org-todo-list
         :desc "View search"                  "v" #'org-search-view
         :desc "Org export to clipboard"        "y" #'+org/export-to-clipboard
         :desc "Org export to clipboard as RTF" "Y" #'+org/export-to-clipboard-as-rich-text

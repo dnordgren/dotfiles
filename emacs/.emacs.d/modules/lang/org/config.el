@@ -135,7 +135,7 @@ Is relative to `org-directory', unless it is absolute. Is used in Doom's default
            "PROJ(p)"    ; An ongoing project that cannot be completed in one step
            "CLDR(c)"    ; Calendar entry (meeting)
            "STRT(s!)"   ; A task that is in progress
-           "WAIT(w@/!)" ; Something is holding up this task; or it is paused
+           "WAIT(w@/!)" ; Something is holding up this task or it is paused
            "|"
            "DONE(d!)"  ; Task successfully completed
            "KILL(k@)"  ; Task was cancelled, aborted or is no longer applicable
@@ -259,7 +259,7 @@ I like:
         org-capture-templates
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nCreated on [%U]")
+           "* TODO %?\nCREATED: [%U]")
           ("c" "Commonplace" entry
            (file+olp+datetree +org-capture-notes-file "Inbox")
            "* [%U] %?\nCreated on [%U]")
@@ -275,7 +275,7 @@ I like:
           ("pt" "Project-local todo" entry  ; {project-root}/todo.org
            (file+headline +org-capture-project-todo-file "Inbox")
            "* TODO %?\n%i\n%a" :prepend t)
-          ("pn" "Project-local notes" entry  ; {project-root}/notes.org
+          ("pn" "Project-local notes" entry  ; {project-root}/commonplace.org
            (file+headline +org-capture-project-notes-file "Inbox")
            "* %U %?\n%i\n%a" :prepend t)
           ("pc" "Project-local changelog" entry  ; {project-root}/changelog.org
@@ -887,7 +887,7 @@ compelling reason, so..."
   org-capture
   :preface
   ;; Change org defaults (should be set before org loads)
-  (setq org-directory "~/org/"
+  (setq org-directory "~/Dropbox/notebook/org/"
         org-attach-id-dir ".attach/"
         org-publish-timestamp-directory (concat doom-cache-dir "org-timestamps/")
         org-preview-latex-image-directory (concat doom-cache-dir "org-latex/"))
