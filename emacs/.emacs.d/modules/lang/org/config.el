@@ -259,10 +259,10 @@ I like:
         org-capture-templates
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nCREATED: [%U]")
+           "* TODO %?\nCREATED: %U")
           ("c" "Commonplace" entry
            (file+olp+datetree +org-capture-notes-file "Inbox")
-           "* [%U] %?\nCreated on [%U]")
+           "* [%U] %?\nCREATED: %U")
           ("j" "Journal" entry
            (file+olp+datetree +org-capture-journal-file)
            "* [%U] %?\n%i")

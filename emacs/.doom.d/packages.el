@@ -8,7 +8,6 @@
 ;; WARNING: Disabling core packages listed in ~/.emacs.d/core/packages.el may
 ;; have nasty side-effects and is not recommended.
 
-
 ;; All of Doom's packages are pinned to a specific commit, and updated from
 ;; release to release. To un-pin all packages and live on the edge, do:
 ;(unpin! t)
@@ -50,4 +49,4 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! tide)
+;; (package! tide)
