@@ -1,0 +1,7 @@
+-*- mode: org -*-
+* bindkey
+
+Bind <ESC>-F to accept zsh suggestion
+#+BEGIN_SRC sh :results output silent
+$ bindkey '\ef' autosuggest-accept
+#+END_SRC
