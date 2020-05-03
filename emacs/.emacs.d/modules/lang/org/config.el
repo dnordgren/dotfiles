@@ -260,12 +260,15 @@ I like:
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
            "* TODO %?\nCREATED: %U")
+          ("i" "Interstitial journaling" entry
+             (file+regexp +org-capture-todo-file "Agenda \| [\d-]*")
+           "* %U %?")
           ("c" "Commonplace" entry
            (file+olp+datetree +org-capture-notes-file "Inbox")
-           "* [%U] %?\nCREATED: %U")
+           "* %U %?")
           ("j" "Journal" entry
            (file+olp+datetree +org-capture-journal-file)
-           "* [%U] %?\n%i")
+           "* %U %?\n%i")
 
           ;; Will use {project-root}/{todo,notes,changelog}.org, unless a
           ;; {todo,notes,changelog}.org file is found in a parent directory.
