@@ -259,7 +259,7 @@ I like:
         org-capture-templates
         '(("t" "Personal todo" entry
            (file+headline +org-capture-todo-file "Inbox")
-           "* TODO %?\nCREATED: %U")
+           "* TODO %?\nGENERATED: %U")
           ("i" "Interstitial journaling" entry
              (file+regexp +org-capture-todo-file "Agenda \| [\d-]*")
            "* %U %?")
