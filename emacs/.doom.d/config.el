@@ -36,6 +36,11 @@
 
 (setq projectile-project-search-path '("~/repos" "~/Dropbox/notebook"))
 
+;; Configure deft
+(setq deft-extensions '("txt" "md" "org"))
+(setq deft-directory "~/Dropbox/notebook")
+(setq deft-recursive t)
+
 ;; Save open buffers on loss of focus
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
