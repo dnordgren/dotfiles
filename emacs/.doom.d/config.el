@@ -36,6 +36,12 @@
 
 (setq projectile-project-search-path '("~/repos" "~/Dropbox/notebook"))
 
+;; Save open buffers on loss of focus
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+
+;; Use visual line mode (soft text wrapping) for markdown mode
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
 (def-package! tide
   :init
   (defun setup-tide-mode ()
