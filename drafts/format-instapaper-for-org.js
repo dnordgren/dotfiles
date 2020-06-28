@@ -1,3 +1,50 @@
+const uuid = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+
+// Word-wrap lines at 80 chars.
+// https://github.com/jonschlinkert/word-wrap/blob/master/index.js
+const wrap = (str, options) => {
+  options = options || {};
+  if (str == null) {
+    return str;
+  }
+
+  var width = options.width || 80;
+  var indent = (typeof options.indent === 'string')
+    ? options.indent
+    : '';
+
+  var newline = options.newline || '\n' + indent;
+  var escape = typeof options.escape === 'function'
+    ? options.escape
+    : identity;
+
+  var regexString = '.{1,' + width + '}';
+  if (options.cut !== true) {
+    regexString += '([\\s\u200B]+|$)|[^\\s\u200B]+?([\\s\u200B]+|$)';
+  }
+
+  var re = new RegExp(regexString, 'g');
+  var lines = str.match(re) || [];
+  var result = indent + lines.map(function(line) {
+    if (line.slice(-1) === '\n') {
+      line = line.slice(0, line.length - 1);
+    }
+    return escape(line);
+  }).join(newline);
+
+  if (options.trim === true) {
+    result = result.replace(/[ \t]*$/gm, '');
+  }
+  return result;
+};
+
+const identity = (str) => str;
+
 // Clean up extra newlines, ugly whitespace chars.
 draft.content = draft.content
   .replace(/[\u2018\u2019]/g, "'")
@@ -5,13 +52,6 @@ draft.content = draft.content
   .replace(/\u200B/g, '')
   .replace(/> \n/g, '')
   .replace(/\n\n\n\n/g, '\n\n\n');
-
-const uuid = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-};
 
 const d = draft.createdAt;
 
@@ -51,6 +91,6 @@ draft.content = modeLine
   + linksDrawer
   + metadataDrawer
   + bullets
-  + draft.content;
+  + wrap(draft.content, { width: 80 });
 
 commit(draft);
