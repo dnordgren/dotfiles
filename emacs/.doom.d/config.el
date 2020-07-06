@@ -24,28 +24,34 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-nord)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Databases/thenorthfork.dtBase2/Files.noindex/org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-(setq projectile-project-search-path '("~/repos" "~/Dropbox/notebook"))
+(setq projectile-project-search-path '("~/repos" "~/Databases/thenorthfork.dtBase2/Files.noindex/"))
 
-;; Configure deft
-(setq deft-extensions '("txt" "md" "org"))
-(setq deft-directory "~/Dropbox/notebook")
-(setq deft-recursive t)
+-;; Configure deft
+-(setq deft-extensions '("txt" "md" "org"))
+-(setq deft-directory "~/Dropbox/notebook")
+-(setq deft-recursive t)
+-
+-;; Save open buffers on loss of focus
+-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
-;; Save open buffers on loss of focus
-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
-
-;; Use visual line mode (soft text wrapping) for markdown mode
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+;; Enable package visual-fill-mode as best-of-both betwee visual-line-mode and autofill-mode
+(add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
+;; Enable visual line mode to visually wrap long lines (as a display effect)
+;; This is built-in behavior in Emacs but isn't configurable at a column but instead uses window width
+;; (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+;; To revert to 'normal' autofill mode, uncomment these lines or remove the above
+;; (add-hook 'text-mode-hook 'auto-fill-mode)
+;; (setq-default fill-column 80)
 
 (def-package! tide
   :init
