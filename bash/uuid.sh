@@ -1,5 +1,4 @@
 #!/bin/sh
 uuid=$(uuidgen)
-echo $uuid | xargs | pbcopy
-echo $uuid | xargs
-
+echo $uuid | tr -d '\n' | pbcopy
+echo $uuid | tr -d '\n'
