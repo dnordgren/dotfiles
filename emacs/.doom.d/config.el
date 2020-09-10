@@ -37,15 +37,15 @@
 ;; Enable visual line mode for text files
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
-(setq projectile-project-search-path '("~/repos" "~/Databases/thenorthfork.dtBase2/Files.noindex/"))
+(setq projectile-project-search-path '("~/repos" "~/Databases/thenorthfork.dtBase2/Files.noindex/md"))
 
--;; Configure deft
--(setq deft-extensions '("txt" "md" "org"))
--(setq deft-directory "~/Dropbox/notebook")
--(setq deft-recursive t)
--
--;; Save open buffers on loss of focus
--(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+;; Configure deft
+(setq deft-extensions '("txt" "md" "org"))
+(setq deft-directory "~/OneDrive/_notebook/vault")
+(setq deft-recursive t)
+
+;; Save open buffers on loss of focus
+(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
 ;; Enable package visual-fill-mode as best-of-both betwee visual-line-mode and autofill-mode
 (add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
