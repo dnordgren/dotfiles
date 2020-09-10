@@ -34,6 +34,9 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; Enable visual line mode for text files
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+
 (setq projectile-project-search-path '("~/repos" "~/Databases/thenorthfork.dtBase2/Files.noindex/"))
 
 -;; Configure deft
