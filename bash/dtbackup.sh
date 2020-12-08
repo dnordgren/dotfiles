@@ -13,5 +13,5 @@ rm -r $tmp_path
 
 gpg_cmd="gpg --encrypt --sign -r derek@dereknordgren.com $zip_path"
 
-echo "$gpg_cmd" | pbcopy
+echo "$gpg_cmd" | tr -d '\n' | pbcopy
 echo "Copied to clipboard: '$gpg_cmd'"
