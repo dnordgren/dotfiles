@@ -19,11 +19,17 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 16))
+(setq doom-font (font-spec :family "Fira Code" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+;; See themes: https://github.com/hlissner/emacs-doom-themes
+;; Favorites:
+;; + doom-city-lights http://citylights.xyz/
+;; + doom-laserwave https://github.com/Jaredk3nt/laserwave
+;; + doom-nord / doom-nord-light https://www.nordtheme.com/
+;; + doom-outrun-electric https://github.com/samrap/outrun-theme-vscode
 (setq doom-theme 'doom-nord)
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -35,14 +41,18 @@
 (setq display-line-numbers-type t)
 
 ;; Enable visual line mode for text files
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+;; (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
-(setq projectile-project-search-path '("~/repos" "~/Databases/thenorthfork.dtBase2/Files.noindex/md"))
+;; Enable auto-fill-mode (auto-hard line wrap) for text files
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-;; Configure deft
+
+(add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
+
 (setq deft-extensions '("txt" "md" "org"))
 (setq deft-directory "~/OneDrive/_notebook/vault")
 (setq deft-recursive t)
+(setq deft-use-filename-as-title t)
 
 ;; Save open buffers on loss of focus
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
