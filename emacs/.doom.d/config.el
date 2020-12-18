@@ -34,7 +34,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Databases/thenorthfork.dtBase2/Files.noindex/org")
+(setq org-directory "/Volumes/dav/notebook/org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -46,25 +46,24 @@
 ;; Enable auto-fill-mode (auto-hard line wrap) for text files
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+(setq projectile-project-search-path '("~/repos" "/Volumes/dav/notebook"))
 
 (add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
 
+;; Configure Deft
 (setq deft-extensions '("txt" "md" "org"))
-(setq deft-directory "~/OneDrive/_notebook/vault")
+(setq deft-directory "/Volumes/dav/notebook")
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
 
 ;; Save open buffers on loss of focus
 (add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
 
-;; Enable package visual-fill-mode as best-of-both betwee visual-line-mode and autofill-mode
-(add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
-;; Enable visual line mode to visually wrap long lines (as a display effect)
-;; This is built-in behavior in Emacs but isn't configurable at a column but instead uses window width
-;; (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-;; To revert to 'normal' autofill mode, uncomment these lines or remove the above
-;; (add-hook 'text-mode-hook 'auto-fill-mode)
-;; (setq-default fill-column 80)
+(setq org-roam-directory "/Volumes/dav/notebook/roam")
+(setq org-roam-dailies-directory "daily-notes")
+(setq org-roam-dailies-capture-templates
+      '(("d" "daily" entry #'org-roam-capture--get-point
+         "* %?\n")))
 
 (def-package! tide
   :init
