@@ -19,64 +19,60 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "monospace" :size 16))
+(setq doom-font (font-spec :family "Fira Code" :size 16))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
+;; See themes: https://github.com/hlissner/emacs-doom-themes
+;; Favorites:
+;; + doom-city-lights http://citylights.xyz/
+;; + doom-laserwave https://github.com/Jaredk3nt/laserwave
+;; + doom-nord / doom-nord-light https://www.nordtheme.com/
+;; + doom-outrun-electric https://github.com/samrap/outrun-theme-vscode
 (setq doom-theme 'doom-nord)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Databases/thenorthfork.dtBase2/Files.noindex/org")
+(setq org-directory "/Volumes/dav/notebook/org")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
 ;; Enable visual line mode for text files
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-
-(setq projectile-project-search-path '("~/repos" "~/Databases/thenorthfork.dtBase2/Files.noindex/md"))
-
-;; Configure deft
-(setq deft-extensions '("txt" "md" "org"))
-(setq deft-directory "~/OneDrive/_notebook/vault")
-(setq deft-recursive t)
-
-;; Save open buffers on loss of focus
-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
-
-;; Enable package visual-fill-mode as best-of-both betwee visual-line-mode and autofill-mode
-(add-hook 'visual-line-mode-hook 'visual-fill-column-mode)
-;; Enable visual line mode to visually wrap long lines (as a display effect)
-;; This is built-in behavior in Emacs but isn't configurable at a column but instead uses window width
 ;; (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-;; To revert to 'normal' autofill mode, uncomment these lines or remove the above
-;; (add-hook 'text-mode-hook 'auto-fill-mode)
-;; (setq-default fill-column 80)
 
-(def-package! tide
-  :init
-  (defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode +1))
+;; Enable auto-fill-mode (auto-hard line wrap) for text files
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-  ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
+(setq projectile-project-search-path '("~/repos" "/Volumes/dav/notebook"))
 
-  ;; formats the buffer before saving
-  (add-hook 'before-save-hook 'tide-format-before-save)
+(add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
 
-  (add-hook 'typescript-mode-hook #'setup-tide-mode))
+;; Configure Deft
+(setq deft-extensions '("txt" "md" "org"))
+(setq deft-directory "/Volumes/dav/notebook")
+(setq deft-recursive t)
+(setq deft-use-filename-as-title t)
+
+(setq flycheck-markdown-mdl-style "~/.mdlrc")
+
+(setq org-roam-directory "/Volumes/dav/notebook/roam")
+(setq org-roam-dailies-directory "daily-notes")
+(setq org-roam-dailies-capture-templates
+      '(("d" "daily" entry #'org-roam-capture--get-point
+         "* %?\n")))
+
+(require 'org-roam-protocol)
+
+(require 'simple-httpd)
+(setq httpd-root "/var/www")
+(httpd-start)
+
+(use-package org-roam-server
+  :ensure nil
+  :load-path "~/www/org-roam-server")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
