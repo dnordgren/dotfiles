@@ -1,0 +1,7 @@
+# See https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md
+
+all # include all rules by default
+rule 'MD004', :style => :dash # enforce '-' as unordered list marker
+rule 'MD007', :indent => 4
+exclude_rule 'MD013' # exclude line-length validation
+exclude_rule 'MD033' # allow inline HTML
