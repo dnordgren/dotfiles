@@ -56,8 +56,7 @@
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
 
-;; Save open buffers on loss of focus
-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+(setq flycheck-markdown-mdl-style "~/.mdlrc")
 
 (setq org-roam-directory "/Volumes/dav/notebook/roam")
 (setq org-roam-dailies-directory "daily-notes")
