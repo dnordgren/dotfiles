@@ -1,4 +1,5 @@
 {
+  "enabledPlugins": [],
   "theme": "obsidian",
   "pluginEnabledStatus": {
     "file-explorer": true,
@@ -7,43 +8,59 @@
     "graph": true,
     "backlink": true,
     "command-palette": true,
-    "markdown-importer": false,
+    "markdown-importer": true,
     "word-count": true,
-    "tag-pane": true,
     "custom-css": true,
+    "tag-pane": true,
+    "page-preview": true,
     "random-note": true,
     "outline": true,
     "open-with-default-app": true,
-    "daily-notes": true,
-    "page-preview": true,
-    "starred": true
+    "workspaces": true
   },
-  "strictLineBreaks": true,
   "foldHeading": true,
   "foldIndent": true,
-  "vimMode": false,
+  "readableLineLength": false,
+  "promptDelete": false,
+  "showLineNumber": true,
+  "vimMode": true,
+  "alwaysUpdateLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Hudl-Product Stack/inbox",
+  "attachmentFolderPath": "Hudl-Product Stack/assets",
   "hotkeys": {
-    "switcher:open": [
-      {
-        "modifiers": [
-          "Mod"
-        ],
-        "key": ","
-      }
-    ],
-    "command-palette:open": [
+    "workspace:split-vertical": [
       {
         "modifiers": [
           "Mod",
           "Shift"
         ],
-        "key": "P"
+        "key": "V"
+      }
+    ],
+    "workspace:split-horizontal": [
+      {
+        "modifiers": [
+          "Mod",
+          "Shift"
+        ],
+        "key": "H"
+      }
+    ],
+    "workspace:copy-url": [
+      {
+        "modifiers": [
+          "Ctrl",
+          "Mod"
+        ],
+        "key": "u"
       }
     ],
     "app:go-back": [
       {
         "modifiers": [
-          "Shift"
+          "Ctrl",
+          "Mod"
         ],
         "key": "ArrowLeft"
       }
@@ -51,72 +68,37 @@
     "app:go-forward": [
       {
         "modifiers": [
-          "Shift"
+          "Ctrl",
+          "Mod"
         ],
         "key": "ArrowRight"
       }
     ],
-    "app:open-settings": [],
-    "open-with-default-app:open": [],
-    "open-with-default-app:show": [
+    "app:toggle-left-sidebar": [
       {
         "modifiers": [
           "Mod",
           "Shift"
         ],
-        "key": "E"
+        "key": "b"
       }
     ],
-    "outline:open": [
+    "app:toggle-right-sidebar": [
       {
         "modifiers": [
           "Mod",
           "Shift"
         ],
-        "key": "O"
+        "key": "d"
       }
     ],
-    "workspace:split-vertical": [
+    "editor:toggle-fold": [
       {
         "modifiers": [
+          "Ctrl",
           "Mod"
         ],
-        "key": "["
-      }
-    ],
-    "explorer:reveal-active-file": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "R"
-      }
-    ],
-    "graph:open": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "G"
-      }
-    ],
-    "graph:open-local": [
-      {
-        "modifiers": [
-          "Mod"
-        ],
-        "key": "g"
-      }
-    ],
-    "editor:fold-all": [
-      {
-        "modifiers": [
-          "Mod",
-          "Shift"
-        ],
-        "key": "K"
+        "key": "c"
       }
     ],
     "editor:swap-line-up": [
@@ -144,44 +126,88 @@
         "key": "h"
       }
     ],
-    "app:toggle-left-sidebar": [
-      {
-        "modifiers": [
-          "Mod"
-        ],
-        "key": ";"
-      }
-    ],
-    "app:toggle-right-sidebar": [
-      {
-        "modifiers": [
-          "Mod"
-        ],
-        "key": "'"
-      }
-    ],
-    "daily-notes": [
+    "editor:delete-paragraph": [],
+    "explorer:reveal-active-file": [
       {
         "modifiers": [
           "Mod",
           "Shift"
         ],
-        "key": "D"
+        "key": "r"
       }
     ],
-    "daily-notes:goto-prev": [],
-    "workspace:split-horizontal": [
+    "switcher:open": [
       {
         "modifiers": [
           "Mod"
         ],
-        "key": "]"
+        "key": ","
+      }
+    ],
+    "app:open-settings": [],
+    "graph:open": [
+      {
+        "modifiers": [
+          "Mod",
+          "Shift"
+        ],
+        "key": "g"
+      }
+    ],
+    "graph:open-local": [
+      {
+        "modifiers": [
+          "Mod"
+        ],
+        "key": "g"
+      }
+    ],
+    "backlink:open-backlinks": [
+      {
+        "modifiers": [
+          "Ctrl",
+          "Mod"
+        ],
+        "key": "b"
+      }
+    ],
+    "command-palette:open": [
+      {
+        "modifiers": [
+          "Mod",
+          "Shift"
+        ],
+        "key": "p"
+      }
+    ],
+    "outline:open": [
+      {
+        "modifiers": [
+          "Ctrl",
+          "Mod"
+        ],
+        "key": "o"
+      }
+    ],
+    "open-with-default-app:open": [
+      {
+        "modifiers": [
+          "Ctrl",
+          "Mod"
+        ],
+        "key": "e"
+      }
+    ],
+    "open-with-default-app:show": [
+      {
+        "modifiers": [
+          "Ctrl",
+          "Mod"
+        ],
+        "key": "f"
       }
     ]
   },
   "useTab": false,
-  "alwaysUpdateLinks": true,
-  "newFileLocation": "folder",
-  "newFileFolderPath": "Hudl-Product Stack/inbox",
-  "attachmentFolderPath": "_assets"
+  "lineWrap": true
 }
