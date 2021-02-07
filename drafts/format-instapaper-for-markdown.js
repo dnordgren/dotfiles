@@ -26,7 +26,7 @@ const urlMatch = markdownTitle.match(urlRegex);
 const title = titleMatch && titleMatch.groups ? titleMatch.groups.title : '';
 const url = urlMatch && urlMatch.groups ? urlMatch.groups.url : '';
 
-const slugLine  = `${yearShort}${month}${day} ${title.toLowerCase()}\n\n`;
+const slugLine  = `${yearShort}${month}${day} ${title.toLowerCase()}\n`;
 const preformattedLine = '```\n';
 const orgTitleLine = `#+TITLE: ${title}\n`;
 const orgDateLine  = `#+DATE: ${yearLong}-${month}-${day} ${weekday}\n`;
@@ -46,9 +46,10 @@ const allLines = draft.lines;
 allLines.shift();
 
 draft.content = slugLine
+  + `${url}\n`
   + `${markdownTitle}\n\n`
   + headersLines
-  + `${allLines.join('\n')}\n\n`
+  + `${allLines.join('\n')}`
   + metadataHeader
   + preformattedLine
   + orgTitleLine
@@ -58,4 +59,4 @@ draft.content = slugLine
   + orgMetadataDrawer
   + preformattedLine
 
-commit(draft);
+draft.update();
