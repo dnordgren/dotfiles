@@ -106,15 +106,15 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias ls="ls -al"
+alias ohmyzsh="vim ~/.oh-my-zsh"
 alias tf="terraform"
+alias txtedit="open -a TextEdit" # followed by filename
 
 # Enable Terraform auto-completion
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
-
-alias ls="ls -al"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -122,4 +122,8 @@ export NVM_DIR="$HOME/.nvm"
 
 eval $(ssh-agent)
 ssh-add ~/.ssh/github
+
+autoload -U +X bashcompinit && bashcompinit
+
+export LESS="-Xr"
 
