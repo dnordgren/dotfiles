@@ -10,9 +10,6 @@
 ;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
 ;;      'C-c g k' for non-vim users) to view its documentation. This works on
 ;;      flags as well (those symbols that start with a plus).
-;;
-;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
-;;      directory (for easy access to its source code).
 
 ;;; Code:
 (doom! :input

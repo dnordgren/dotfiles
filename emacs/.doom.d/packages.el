@@ -1,22 +1,14 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
+;; Install package to visual wrap lines at e.g. 80 chars
+;; Replacement for built-in but deficient visual-line-mode
+;; Similar in behavior to autofill-mode at 80 chars (default Emacs behavior)
+(package! visual-fill-column)
+
 ;; To install a package with Doom you must declare them here, run 'doom sync' on
 ;; the command line, then restart Emacs for the changes to take effect.
 ;; Alternatively, use M-x doom/reload.
-;;
-;; WARNING: Disabling core packages listed in ~/.emacs.d/core/packages.el may
-;; have nasty side-effects and is not recommended.
-
-;; All of Doom's packages are pinned to a specific commit, and updated from
-;; release to release. To un-pin all packages and live on the edge, do:
-;(unpin! t)
-
-;; ...but to unpin a single package:
-;(unpin! pinned-package)
-;; Use it to unpin multiple packages
-;(unpin! pinned-package another-pinned-package)
-
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
@@ -48,16 +40,3 @@
 ;; This is required for some packages whose default branch isn't 'master' (which
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
-
-;; (package! tide)
-
-;; Doom Emacs docs: https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#installing-packages-from-external-sources
-;;(package! org-logseq :recipe
-;;  (:host github
-;;   :repo "llcc/org-logseq"
-;;   :files ("*")))
-
-;; Install package to visual wrap lines at e.g. 80 chars
-;; Replacement for built-in but deficient visual-line-mode
-;; Similar in behavior to autofill-mode at 80 chars (default Emacs behavior)
-(package! visual-fill-column)
