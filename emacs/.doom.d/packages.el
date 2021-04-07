@@ -17,6 +17,7 @@
 ;; Use it to unpin multiple packages
 ;(unpin! pinned-package another-pinned-package)
 
+
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 
@@ -48,7 +49,13 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! tide)
+;; (package! tide)
+
+;; Doom Emacs docs: https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#installing-packages-from-external-sources
+;;(package! org-logseq :recipe
+;;  (:host github
+;;   :repo "llcc/org-logseq"
+;;   :files ("*")))
 
 ;; Install package to visual wrap lines at e.g. 80 chars
 ;; Replacement for built-in but deficient visual-line-mode
