@@ -42,6 +42,7 @@
 (setq treemacs-sorting 'alphabetic-case-insensitive-desc)
 
 (setq org-directory "~/repos/personal/logseq-vault")
+(setq org-archive-location "~/repos/personal/logseq-vault/archive/2021.fyq1.archive.org::datetree/* Completed Tasks")
 
 (setq org-roam-directory "~/repos/personal/notebook-local-clone/notebook/roam")
 (setq org-roam-dailies-directory "daily-notes")
