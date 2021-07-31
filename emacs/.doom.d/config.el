@@ -3,7 +3,7 @@
 (setq user-full-name "Derek Nordgren"
       user-mail-address "derek.nordgren@protonmail.com")
 
-(setq doom-font (font-spec :family "Fira Code" :size 16))
+(setq doom-font (font-spec :family "iA Writer Duo S" :size 16))
 
 ;; See themes: https://github.com/hlissner/emacs-doom-themes
 ;; Favorites:
@@ -12,8 +12,18 @@
 ;; + doom-nord / doom-nord-light https://www.nordtheme.com/
 ;; + doom-outrun-electric https://github.com/samrap/outrun-theme-vscode
 ;; + doom-molokai
+;; + doom-moonlight
+;; + doom-nova
+;; + doom-old-hope ; star wars theme
+;; + doom-peacock
+;; + doom-plain ; grayscale
+;; + doom-rouge
 ;; + doom-dracula
-(setq doom-theme 'doom-outrun-electric)
+;; + doom-monokai-spectrum https://monokai.pro/sublime-text
+;; + doom-xcode
+;; + doom-rouge https://github.com/josefaidt/rouge-theme
+;; + doom-sourcerer
+(setq doom-theme 'doom-monokai-spectrum)
 
 (setq display-line-numbers-type t)
 
@@ -26,13 +36,13 @@
 ;; Use soft tabs
 (setq-default indent-tabs-mode nil)
 
-(setq projectile-project-search-path '("~/repos" "/Volumes/dav/notebook" "~/repos/personal/logseq-vault"))
+(setq projectile-project-search-path '("~/repos" "/Volumes/dav/notebook" "~~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault"))
 
 (add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
 
 ;; Configure Deft
 (setq deft-extensions '("txt" "md" "org"))
-(setq deft-directory "/Volumes/dav/notebook")
+(setq deft-directory "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault")
 (setq deft-recursive t)
 (setq deft-use-filename-as-title t)
 
@@ -41,17 +51,20 @@
 ;; Sort treemacs directory listing desc
 (setq treemacs-sorting 'alphabetic-case-insensitive-desc)
 
-(setq org-directory "~/repos/personal/logseq-vault")
-(setq org-archive-location "~/repos/personal/logseq-vault/archive/2021.fyq1.archive.org::datetree/* Completed Tasks")
+(setq org-directory "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault")
+(setq org-agenda-files (directory-files-recursively "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault/pages/" "\\.org$"))
+(setq org-archive-location "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault/archive/2021.fyq2.archive.org::datetree/* Completed Tasks")
+(after! org
+  (setq org-agenda-files
+    '(directory-files-recursively "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault/pages")))
 
-(setq org-roam-directory "~/repos/personal/notebook-local-clone/notebook/roam")
-(setq org-roam-dailies-directory "daily-notes")
-(setq org-roam-dailies-capture-templates
-      '(("d" "daily" entry #'org-roam-capture--get-point
-         "* %?\n")))
+;;(setq org-roam-dailies-directory "daily-notes")
+;;(setq org-roam-dailies-capture-templates
+;;      '(("d" "daily" entry #'org-roam-capture--get-point
+;;         "* %?\n")))
 
 ;; Configure org-logseq
-(setq org-logseq-dir "~/repos/personal/logseq-vault")
+(setq org-logseq-dir "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/logseq-vault")
 (load! "org-logseq")
 
 ;; Set go-to and go-back for org-logseq.

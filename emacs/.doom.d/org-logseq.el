@@ -283,20 +283,20 @@ The type can be 'url, 'draw and 'page, denoting the link type."
     (goto-char beg)
     (while (re-search-forward org-drawer-regexp end t)
       (let* ((pair (get-char-property-and-overlay (line-beginning-position)
-                                      'invisible))
-           (o (cdr-safe pair)))
-      (if (overlayp o) (goto-char (overlay-end o)) ;invisible drawer
-        (pcase (get-char-property-and-overlay (point) 'invisible)
-          (`(outline . ,o) (goto-char (overlay-end o))) ;already folded
-          (_
-           (let* ((drawer (org-element-at-point))
-                (type (org-element-type drawer)))
-             (when (memq type '(drawer property-drawer))
-             (org-hide-drawer-toggle t nil drawer)
-             ;; Make sure to skip drawer entirely or we might flag it
-             ;; another time when matching its ending line with
-             ;; `org-drawer-regexp'.
-             (goto-char end))))))))))
+						                          'invisible))
+	         (o (cdr-safe pair)))
+	    (if (overlayp o) (goto-char (overlay-end o)) ;invisible drawer
+	      (pcase (get-char-property-and-overlay (point) 'invisible)
+	        (`(outline . ,o) (goto-char (overlay-end o))) ;already folded
+	        (_
+	         (let* ((drawer (org-element-at-point))
+		            (type (org-element-type drawer)))
+	           (when (memq type '(drawer property-drawer))
+		         (org-hide-drawer-toggle t nil drawer)
+		         ;; Make sure to skip drawer entirely or we might flag it
+		         ;; another time when matching its ending line with
+		         ;; `org-drawer-regexp'.
+		         (goto-char end))))))))))
 
 (defun org-logseq-create-block-overlay (beg end file-type-block)
   (pcase-let ((`((,file . ,uuid) . (,type . ,content))
@@ -402,71 +402,71 @@ object (e.g., within a comment).  In these case, you need to use
 `org-open-at-point' directly."
   (interactive "i\nP\np")
   (let ((context (if org-return-follows-link (org-element-context)
-               (org-element-at-point))))
+		           (org-element-at-point))))
     (cond
      ;; In a table, call `org-table-next-row'.  However, before first
      ;; column or after last one, split the table.
      ((or (and (eq 'table (org-element-type context))
-             (not (eq 'table.el (org-element-property :type context)))
-             (>= (point) (org-element-property :contents-begin context))
-             (< (point) (org-element-property :contents-end context)))
-        (org-element-lineage context '(table-row table-cell) t))
+	           (not (eq 'table.el (org-element-property :type context)))
+	           (>= (point) (org-element-property :contents-begin context))
+	           (< (point) (org-element-property :contents-end context)))
+	      (org-element-lineage context '(table-row table-cell) t))
       (if (or (looking-at-p "[ \t]*$")
-            (save-excursion (skip-chars-backward " \t") (bolp)))
-        (insert "\n")
-      (org-table-justify-field-maybe)
-      (call-interactively #'org-table-next-row)))
+	          (save-excursion (skip-chars-backward " \t") (bolp)))
+	      (insert "\n")
+	    (org-table-justify-field-maybe)
+	    (call-interactively #'org-table-next-row)))
      ;; On a link or a timestamp, call `org-open-at-point' if
      ;; `org-return-follows-link' allows it.  Tolerate fuzzy
      ;; locations, e.g., in a comment, as `org-open-at-point'.
      ((and org-return-follows-link
            (or (and (eq 'link (org-element-type context))
-                ;; Ensure point is not on the white spaces after
-                ;; the link.
-                (let ((origin (point)))
-                  (org-with-point-at (org-element-property :end context)
-                  (skip-chars-backward " \t")
-                  (> (point) origin))))
-             (org-in-regexp org-ts-regexp-both nil t)
-             (org-in-regexp org-tsr-regexp-both nil  t)
-             (org-in-regexp org-link-any-re nil t)
+		            ;; Ensure point is not on the white spaces after
+		            ;; the link.
+		            (let ((origin (point)))
+		              (org-with-point-at (org-element-property :end context)
+			            (skip-chars-backward " \t")
+			            (> (point) origin))))
+	           (org-in-regexp org-ts-regexp-both nil t)
+	           (org-in-regexp org-tsr-regexp-both nil  t)
+	           (org-in-regexp org-link-any-re nil t)
                (org-logseq-get-block-id)
                (org-logseq-get-block-ref-or-embed-link)))
       (org-logseq-open-link))
      ;; Insert newline in heading, but preserve tags.
      ((and (not (bolp))
-         (let ((case-fold-search nil))
-           (org-match-line org-complex-heading-regexp)))
+	       (let ((case-fold-search nil))
+	         (org-match-line org-complex-heading-regexp)))
       ;; At headline.  Split line.  However, if point is on keyword,
       ;; priority cookie or tags, do not break any of them: add
       ;; a newline after the headline instead.
       (let ((tags-column (and (match-beginning 5)
-                        (save-excursion (goto-char (match-beginning 5))
-                                    (current-column))))
-          (string
-           (when (and (match-end 4) (org-point-in-group (point) 4))
-             (delete-and-extract-region (point) (match-end 4)))))
-      ;; Adjust tag alignment.
-      (cond
-       ((not (and tags-column string)))
-       (org-auto-align-tags (org-align-tags))
-       (t (org--align-tags-here tags-column))) ;preserve tags column
-      (end-of-line)
-      (org-show-entry)
-      (org--newline indent arg interactive)
-      (when string (save-excursion (insert (org-trim string))))))
+			                  (save-excursion (goto-char (match-beginning 5))
+					                          (current-column))))
+	        (string
+	         (when (and (match-end 4) (org-point-in-group (point) 4))
+	           (delete-and-extract-region (point) (match-end 4)))))
+	    ;; Adjust tag alignment.
+	    (cond
+	     ((not (and tags-column string)))
+	     (org-auto-align-tags (org-align-tags))
+	     (t (org--align-tags-here tags-column))) ;preserve tags column
+	    (end-of-line)
+	    (org-show-entry)
+	    (org--newline indent arg interactive)
+	    (when string (save-excursion (insert (org-trim string))))))
      ;; In a list, make sure indenting keeps trailing text within.
      ((and (not (eolp))
-         (org-element-lineage context '(item)))
+	       (org-element-lineage context '(item)))
       (let ((trailing-data
-           (delete-and-extract-region (point) (line-end-position))))
-      (org--newline indent arg interactive)
-      (save-excursion (insert trailing-data))))
+	         (delete-and-extract-region (point) (line-end-position))))
+	    (org--newline indent arg interactive)
+	    (save-excursion (insert trailing-data))))
      (t
       ;; Do not auto-fill when point is in an Org property drawer.
       (let ((auto-fill-function (and (not (org-at-property-p))
-                             auto-fill-function)))
-      (org--newline indent arg interactive))))))
+				                     auto-fill-function)))
+	    (org--newline indent arg interactive))))))
 
 (defun org-logseq-activate ()
   (advice-add 'org-return :override #'org-logseq-return)

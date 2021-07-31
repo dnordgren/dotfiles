@@ -10,6 +10,9 @@
 ;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
 ;;      'C-c g k' for non-vim users) to view its documentation. This works on
 ;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c g d') on a module to browse its
+;;      directory (for easy access to its source code).
 
 ;;; Code:
 (doom! :input
@@ -82,11 +85,11 @@
        ;;debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        docker
-       editorconfig        ; let someone else argue about tabs vs spaces
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
-       ;;lookup            ; navigate your code and its documentation
+       ;;lookup              ; navigate your code and its documentation
        ;;lsp
        ;;macos             ; MacOS-specific commands
        magit               ; a git porcelain for Emacs
@@ -107,7 +110,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       csharp              ; unity, .NET, and mono shenanigans
+       csharp             ; unity, .NET, and mono shenanigans
        data                ; config/data formats
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
@@ -136,12 +139,12 @@
        ;;ocaml             ; an objective camel
        (org                ; organize your plain life in plain text
         +dragndrop         ; drag & drop files/images into org buffers
-        +roam              ; org-roam all-powerful Org and Roam for all-powerful nerdery
+       ;; +roam            ; org-roam all-powerful Org and Roam for all-powerful nerdery
         ;;+hugo            ; use Emacs for hugo blogging
         ;;+jupyter         ; ipython/jupyter support for babel
         ;;+pandoc          ; export-with-pandoc support
         +pomodoro          ; be fruitful with the tomato technique
-        +present)          ; using org-mode for presentations
+        +present)          ; using org-mod  e for presentations
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        plantuml            ; diagrams for confusing people more
