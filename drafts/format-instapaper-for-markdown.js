@@ -27,7 +27,7 @@ const title = titleMatch && titleMatch.groups ? titleMatch.groups.title : '';
 const url = urlMatch && urlMatch.groups ? urlMatch.groups.url : '';
 
 const slugLine  = `${yearShort}${month}${day} ${title.toLowerCase()}\n`;
-const preformattedLine = '```\n';
+const preformattedLine = '```txt\n';
 const orgTitleLine = `#+TITLE: ${title}\n`;
 const orgDateLine  = `#+DATE: ${yearLong}-${month}-${day} ${weekday}\n`;
 const orgUrlLine   = `#+URL: ${url}\n\n`;
