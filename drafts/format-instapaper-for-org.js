@@ -48,9 +48,14 @@ const identity = (str) => str;
 // Clean up extra newlines, ugly whitespace chars.
 draft.content = draft.content
   .replace(/[\u2018\u2019]/g, "'")
+  .replace(/\255/g, '') // short hyphen from WSJ
   .replace(/[\u201C\u201D]/g, '"')
   .replace(/\u200B/g, '')
   .replace(/> \n/g, '')
+  .replace(/“/g, '"')
+  .replace(/”/g, '"')
+  .replace(/‘/g, "'")
+  .replace(/’/g, "'")
   .replace(/\n\n\n\n/g, '\n\n\n');
 
 const d = draft.createdAt;

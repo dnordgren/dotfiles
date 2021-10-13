@@ -3,9 +3,14 @@
 // Clean up extra newlines, ugly whitespace chars.
 draft.content = draft.content
   .replace(/[\u2018\u2019]/g, "'")
+  .replace(/\255/g, '') // short hyphen from WSJ
   .replace(/[\u201C\u201D]/g, '"')
   .replace(/\u200B/g, '')
   .replace(/> \n/g, '')
+  .replace(/“/g, '"')
+  .replace(/”/g, '"')
+  .replace(/‘/g, "'")
+  .replace(/’/g, "'")
   .replace(/\n\n\n\n/g, '\n\n\n');
 
 const d = draft.createdAt;
@@ -23,10 +28,13 @@ const urlRegex   = /\((?<url>.*)\)/;
 const titleMatch = markdownTitle.match(titleRegex);
 const urlMatch = markdownTitle.match(urlRegex);
 
-const title = titleMatch && titleMatch.groups ? titleMatch.groups.title : '';
+let title = titleMatch && titleMatch.groups ? titleMatch.groups.title : '';
+title = title
+  .replace(/\s/g, '_')
+  .replace(/\'/g, '');
 const url = urlMatch && urlMatch.groups ? urlMatch.groups.url : '';
 
-const slugLine  = `${yearShort}${month}${day} ${title.toLowerCase()}\n`;
+const slugLine  = `${yearShort}${month}${day}_${title.toLowerCase()}\n`;
 const preformattedLine = '```txt\n';
 const orgTitleLine = `#+TITLE: ${title}\n`;
 const orgDateLine  = `#+DATE: ${yearLong}-${month}-${day} ${weekday}\n`;
@@ -36,7 +44,7 @@ const orgLinksDrawer = `:LINKS:\n@:${draft.uuid}\n:END:\n`;
 
 const orgMetadataDrawer = `:METADATA:\nlat : ${draft.createdLatitude}\nlong: ${draft.createdLongitude}\n:END:\n`;
 
-const headersLines = '## Summary\n## Reaction\n## Further reading\n## Snippets\n';
+const headersLines = '## Summary\n\n\n## Snippets\n';
 
 const metadataHeader = '## Metadata\n\n';
 
@@ -60,6 +68,6 @@ draft.content = slugLine
   + orgUrlLine
   + orgLinksDrawer
   + orgMetadataDrawer
-  + preformattedLine
+  + '\`\`\`';
 
 draft.update();
