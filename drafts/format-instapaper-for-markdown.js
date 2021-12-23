@@ -30,11 +30,10 @@ const urlMatch = markdownTitle.match(urlRegex);
 
 let title = titleMatch && titleMatch.groups ? titleMatch.groups.title : '';
 title = title
-  .replace(/\s/g, '_')
-  .replace(/\'/g, '');
+  .replace(/[^a-z0-9]/gi, '_').toLowerCase();
 const url = urlMatch && urlMatch.groups ? urlMatch.groups.url : '';
 
-const slugLine  = `${yearShort}${month}${day}_${title.toLowerCase()}\n`;
+const slugLine  = `${yearShort}${month}${day} ${title}-lit\n`;
 const preformattedLine = '```txt\n';
 const orgTitleLine = `#+TITLE: ${title}\n`;
 const orgDateLine  = `#+DATE: ${yearLong}-${month}-${day} ${weekday}\n`;
