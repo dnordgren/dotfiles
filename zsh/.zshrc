@@ -1,3 +1,8 @@
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
+
 # Activate Ruby environment manager.
 eval "$(rbenv init -)"
 
@@ -6,7 +11,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/derek/.oh-my-zsh"
+export ZSH="/Users/derek.nordgren/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -54,6 +59,10 @@ fi
 source ~/.iterm2_shell_integration.zsh
 export PATH=$HOME/bin:$PATH
 
+# https://samuelsson.dev/sign-git-commits-on-github-with-gpg-in-macos/
+# https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374
+export GPG_TTY=$(tty)
+
 # Add pi_rsa so Emacs Tramp works with public key authentication.
 ssh-add ~/.ssh/pi_rsa.pem
 
@@ -64,6 +73,7 @@ alias txtedit="open -a TextEdit" # followed by filename
 alias obs="cd ~/vaults/working-notes"
 alias bb="bbedit"
 alias zshconfig="bbedit ~/.zshrc"
+alias td="todoist"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
@@ -89,3 +99,12 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
