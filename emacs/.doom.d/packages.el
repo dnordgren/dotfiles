@@ -51,6 +51,8 @@
 
 ;; (package! tide)
 
+(package! racer)
+
 ;; Doom Emacs docs: https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#installing-packages-from-external-sources
 ;;(package! org-logseq :recipe
 ;;  (:host github

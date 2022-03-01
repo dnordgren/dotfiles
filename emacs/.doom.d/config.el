@@ -73,3 +73,13 @@
       (:prefix-map ("l" . "logseq")
        :desc "Open page link or block ID" "o" #'org-logseq-open-link
        :desc "Go back to last mark" "b" #'org-mark-ring-goto))
+
+;;;; Configure Rust IDE
+;; Configure Racer
+;; per https://github.com/racer-rust/emacs-racer
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+
+(add-hook 'racer-mode-hook #'company-mode)
+(require 'rust-mode)
+(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
