@@ -1,6 +1,18 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
+;; racer for Rust
+(package! racer)
+
+;; aggregate clock reports
+;; https://github.com/tbanel/orgaggregate
+;; http://mpas.github.io/posts/2021/03/16/2021-03-16-time-tracking-with-org-mode-and-sum-time-per-tag/
+(package! orgtbl-aggregate)
+
+;; =====
+
+;; Doom Emacs docs:
+;; https://github.com/hlissner/doom-emacs/blob/develop/docs/getting_started.org#installing-packages-from-external-sources
 ;; To install a package with Doom you must declare them here, run 'doom sync' on
 ;; the command line, then restart Emacs for the changes to take effect.
 ;; Alternatively, use M-x doom/reload.
@@ -48,9 +60,17 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-(package! tide)
+;;;; Uninstalled packages
+;;; org-logseq
+;;(package! org-logseq :recipe
+;;  (:host github
+;;   :repo "llcc/org-logseq"
+;;   :files ("*")))
 
-;; Install package to visual wrap lines at e.g. 80 chars
+;;; Install package to visual wrap lines at e.g. 80 chars
 ;; Replacement for built-in but deficient visual-line-mode
 ;; Similar in behavior to autofill-mode at 80 chars (default Emacs behavior)
-(package! visual-fill-column)
+;;(package! visual-fill-column)
+
+;;; tide for TypeScript
+;; (package! tide)
