@@ -25,17 +25,20 @@
 ;; + doom-rouge https://github.com/josefaidt/rouge-theme
 ;; + doom-sourcerer
 ;; + doom-monokai-spectrum
-(setq doom-theme 'doom-xcode)
+(setq doom-theme 'doom-rouge)
 
 ;;;; Editor preferences
 
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
 ;; Enable auto-fill-mode (auto-hard line wrap) for text files
-;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
+;; use M-q to reformat just the current block of text
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; Enable visual line mode for text files
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+;; (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Use soft tabs
 (setq-default indent-tabs-mode nil)
@@ -77,21 +80,30 @@
 
 ;; Agenda clock report parameters
 (setq org-agenda-clockreport-parameter-plist
-      '(:link t :tags t :maxlevel 4 :block thisweek :scope file))
+      '(:link t :tags t :maxlevel 3 :block thisweek :scope file))
 
 ;; Ignore broken links during org-mode export (mark)
 (setq org-export-with-broken-links t)
 
-;; Configure org-logseq
-;;(setq org-logseq-dir "~/vaults/working-notes")
-;;(load! "org-logseq")
+;;; Configure clock reporting in org-mode
 
-;; Set go-to and go-back for org-logseq.
-;; https://rameezkhan.me/adding-keybindings-to-doom-emacs/
-(map! :leader
-      (:prefix-map ("l" . "logseq")
-       :desc "Open page link or block ID" "o" #'org-logseq-open-link
-       :desc "Go back to last mark" "b" #'org-mark-ring-goto))
+;; set time format to hh:mm - doesn't work
+;; (setq org-duration-format 'h:mm)
+
+;; from http://mpas.github.io/posts/2021/03/16/2021-03-16-time-tracking-with-org-mode-and-sum-time-per-tag/
+(defun convert-org-clocktable-time-to-hhmm (time-string)
+  "Converts a time string to HH:MM"
+  (if (> (length time-string) 0)
+      (progn
+        (let* ((s (s-replace "*" "" time-string))
+               (splits (split-string s ":"))
+               (hours (car splits))
+               (minutes (car (last splits)))
+               )
+          (if (= (length hours) 1)
+              (format "0%s:%s" hours minutes)
+            (format "%s:%s" hours minutes))))
+    time-string))
 
 ;;;; Configure mu4e
 ;; https://emacs.stackexchange.com/a/46171
@@ -100,7 +112,7 @@
 ;;(require 'mu4e)
 
 ;; Get mail
-(setq
+;;(setq
 ;; this setting allows to re-sync and re-index mail
 ;; by pressing U
 ;;mu4e-get-mail-command "mbsync protonmail"
@@ -120,7 +132,7 @@
 ;;mu4e-sent-folder   "/Sent"
 ;;mu4e-drafts-folder "/Drafts"
 ;;mu4e-trash-folder  "/Trash"
-)
+;;)
 
 ;; Send mail
 (setq message-send-mail-function 'smtpmail-send-it
