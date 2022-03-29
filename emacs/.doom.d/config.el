@@ -72,6 +72,10 @@
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 
+;;; magit configuration
+;; enable git commit signing with gpg in magit (see git blame on this commit)
+(pinentry-start)
+
 ;;;; org-mode configuration
 
 (setq org-directory "~/vaults/working-notes")

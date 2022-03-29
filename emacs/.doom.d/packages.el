@@ -9,6 +9,9 @@
 ;; http://mpas.github.io/posts/2021/03/16/2021-03-16-time-tracking-with-org-mode-and-sum-time-per-tag/
 (package! orgtbl-aggregate)
 
+;; pinentry for gpg - git commit signing
+(package! pinentry)
+
 ;; =====
 
 ;; Doom Emacs docs:
