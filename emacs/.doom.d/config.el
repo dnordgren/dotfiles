@@ -29,6 +29,9 @@
 
 ;;;; Editor preferences
 
+;; Disable Alt-3 as £ to support hash on British keyboard.
+(define-key key-translation-map (kbd "M-3") (kbd "#"))
+
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
