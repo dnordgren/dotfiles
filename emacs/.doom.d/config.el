@@ -3,7 +3,7 @@
 (setq user-full-name "Derek Nordgren"
       user-mail-address "derek.nordgren@protonmail.com")
 
-(setq doom-font (font-spec :family "iA Writer Duo S" :size 16))
+(setq doom-font (font-spec :family "iA Writer Mono S" :size 16))
 
 ;; See themes: https://github.com/hlissner/emacs-doom-themes
 ;; Favorites:
@@ -79,6 +79,10 @@
 ;; enable git commit signing with gpg in magit (see git blame on this commit)
 (pinentry-start)
 
+;; configure suffixes to allow choosing gpg key at commit-time
+;; https://github.com/magit/magit/issues/3771#issuecomment-477589185
+(setq transient-default-level 5)
+
 ;;;; org-mode configuration
 
 (setq org-directory "~/vaults/working-notes")
@@ -87,7 +91,7 @@
 
 ;; Agenda clock report parameters
 (setq org-agenda-clockreport-parameter-plist
-      '(:link t :tags t :maxlevel 3 :block thisweek :scope file))
+      '(:link t :tags t :maxlevel 3 :scope file))
 
 ;; Ignore broken links during org-mode export (mark)
 (setq org-export-with-broken-links t)
