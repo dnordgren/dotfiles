@@ -1,0 +1,22 @@
+/* start - sync */
+/* display Synced indicator more prominently on mobile */
+.MobileHeader-moreOptions {
+	display: block;
+	position: absolute;
+	width: 80px;
+	top: 0;
+	left: 50px;
+	right: 5px;
+	border-radius: 3px;
+	clip-path: polygon(0% 0, 100px 0, 100px 40px, 0% 40px);
+	float: left;
+	box-shadow: none;
+	background: none;
+}
+.MobileHeader.is-moreOptionsOpen .MobileHeader-moreOptions {
+	display: block;
+	clip-path: none;
+	width: auto;
+	background: #fff;
+}
+/* end - sync */
