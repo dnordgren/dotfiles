@@ -17,7 +17,7 @@ export ZSH="/Users/derek.nordgren/.oh-my-zsh"
 ZSH_THEME="pygmalion"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -25,7 +25,7 @@ ENABLE_CORRECTION="true"
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # or set a custom format using the strftime function format specifications,
 # see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 plugins=(
   aws
@@ -45,6 +45,16 @@ source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+
+function halp {
+  echo "infra_role_assume acct role session_name"
+  echo "infra_role_unset"
+  echo "whats_running_any_tcp_port"
+  echo "whats_running_this_tcp_port port"
+  echo "route53_query_all_zones"
+  echo "route53_rg query"
+  echo "gtt tag_name"
+}
 
 infra_role_assume () {
   readonly acct=${1:?"The account ID must be specified."}
@@ -72,6 +82,22 @@ whats_running_this_tcp_port () {
   readonly port=${1:?"The port must be specified."}
   echo "Running $ lsof -nP -iTCP:$port -sTCP:LISTEN"
   lsof -nP -iTCP:"$port" -sTCP:LISTEN
+}
+
+function route53_query_all_zones {
+  aws route53 list-hosted-zones | jq '.[] | .[] | .Id' | sed 's!/hostedzone/!!' | sed 's/"//g'> zones
+  mv ~/Documents/hudl/route53-records.json ~/Documents/hudl/route53-records.json.bak
+  for z in `cat zones`; do
+    echo $z;
+    aws route53 list-resource-record-sets --hosted-zone-id $z >> ~/Documents/hudl/route53-records.json;
+  done
+  rm zones
+  Echo "~/Documents/hudl/route53-records.json has been updated"
+}
+
+route53_rg () {
+  readonly query=${1:?"Query must be specified."}
+  rg $query ~/Documents/hudl/route53-records.json -A 5
 }
 
 function gtt {
