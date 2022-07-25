@@ -1,8 +1,5 @@
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
-
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # Activate Ruby environment manager.
 eval "$(rbenv init -)"
 
@@ -49,6 +46,43 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+infra_role_assume () {
+  readonly acct=${1:?"The account ID must be specified."}
+  readonly role=${2:?"The role ID must be specified."}
+  readonly session_name=${3:?"The session name must be specified."}
+
+  OUT=$(aws sts assume-role --role-arn arn:aws:iam::$acct\:role/$role --role-session-name $session_name);
+  export AWS_ACCESS_KEY_ID=$(echo $OUT | jq -r '.Credentials''.AccessKeyId');
+  export AWS_SECRET_ACCESS_KEY=$(echo $OUT | jq -r '.Credentials''.SecretAccessKey');
+  export AWS_SESSION_TOKEN=$(echo $OUT | jq -r '.Credentials''.SessionToken');
+
+  echo "Assumed $role in $acct. Use infra_role_unset to exit."
+}
+
+function infra_role_unset {
+  unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+}
+
+function whats_running_any_tcp_port {
+  echo "Running $ lsof -nP -iTCP -sTCP:LISTEN"
+  lsof -nP -iTCP -sTCP:LISTEN
+}
+
+whats_running_this_tcp_port () {
+  readonly port=${1:?"The port must be specified."}
+  echo "Running $ lsof -nP -iTCP:$port -sTCP:LISTEN"
+  lsof -nP -iTCP:"$port" -sTCP:LISTEN
+}
+
+function gtt {
+    readonly tag_name=${1:?"The new tag name must be specified."}
+    export MY_NEW_TAG="$tag_name"
+    echo "executing git tag -a $MY_NEW_TAG -m '$MY_NEW_TAG'"
+    git tag -a $MY_NEW_TAG -m "$MY_NEW_TAG"
+    echo "run gttp to push the tag to origin"
+}
+alias gttp="git push origin $MY_NEW_TAG"
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -61,6 +95,7 @@ export PATH=$HOME/bin:$PATH
 
 # https://samuelsson.dev/sign-git-commits-on-github-with-gpg-in-macos/
 # https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374
+# https://gist.github.com/oseme-techguy/bae2e309c084d93b75a9b25f49718f85
 export GPG_TTY=$(tty)
 
 # Add pi_rsa so Emacs Tramp works with public key authentication.
@@ -74,6 +109,9 @@ alias obs="cd ~/vaults/working-notes"
 alias bb="bbedit"
 alias zshconfig="bbedit ~/.zshrc"
 alias td="todoist"
+alias doom="emacs"
+
+fpath+=~/.zfunc
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
@@ -104,7 +142,5 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
