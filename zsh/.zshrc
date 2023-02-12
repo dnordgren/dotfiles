@@ -1,5 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Activate Ruby environment manager.
 eval "$(rbenv init -)"
 
@@ -49,11 +49,15 @@ source $ZSH/oh-my-zsh.sh
 function halp {
   echo "infra_role_assume acct role session_name"
   echo "infra_role_unset"
+  echo "kube_ctx_unset"
+  echo "kube_ctx_set_prod_eks"
+  echo "ssm instance_id"
   echo "whats_running_any_tcp_port"
   echo "whats_running_this_tcp_port port"
   echo "route53_query_all_zones"
-  echo "route53_rg query"
+  echo "rrg query"
   echo "gtt tag_name"
+  echo "ip_pls"
 }
 
 infra_role_assume () {
@@ -71,6 +75,26 @@ infra_role_assume () {
 
 function infra_role_unset {
   unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+}
+
+function kube_ctx_unset {
+  kubectl config unset current-context
+}
+
+function kube_ctx_set_prod_eks {
+  aws eks --region us-east-1 update-kubeconfig --name p-eks-3c86d
+}
+
+ssm () {
+  readonly instance_id=${1:?"The instance_id must be specified."}
+  aws ssm start-session --target $instance_id
+}
+
+function ip_pls {
+  my_ip=$(curl -s ipinfo.io/ip)
+  echo $my_ip
+  echo $my_ip | pbcopy
+  echo "IP copied to clipboard"
 }
 
 function whats_running_any_tcp_port {
@@ -95,9 +119,9 @@ function route53_query_all_zones {
   Echo "~/Documents/hudl/route53-records.json has been updated"
 }
 
-route53_rg () {
+rrg () {
   readonly query=${1:?"Query must be specified."}
-  rg $query ~/Documents/hudl/route53-records.json -A 5
+  rg $query ~/Documents/hudl/route53-records.json -A 5 -B 5
 }
 
 function gtt {
@@ -136,6 +160,10 @@ alias bb="bbedit"
 alias zshconfig="bbedit ~/.zshrc"
 alias td="todoist"
 alias doom="emacs"
+alias dl="cd ~/Downloads"
+alias docs="cd ~/Documents/hudl"
+alias repos="cd ~/repos/hudl"
+alias vault="cd ~/vaults/working-notes"
 
 fpath+=~/.zfunc
 
@@ -169,4 +197,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

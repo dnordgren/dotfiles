@@ -23,9 +23,10 @@
 ;; + doom-monokai-spectrum https://monokai.pro/sublime-text
 ;; + doom-xcode
 ;; + doom-rouge https://github.com/josefaidt/rouge-theme
-;; + doom-sourcerer
+;; + doom-sourcerer - fav!
 ;; + doom-monokai-spectrum
-(setq doom-theme 'doom-rouge)
+;; + doom-homage-white ; plain/retro theme
+(setq doom-theme 'doom-old-hope)
 
 ;;;; Editor preferences
 
@@ -87,7 +88,7 @@
 
 (setq org-directory "~/vaults/working-notes")
 
-(setq org-archive-location "~/vaults/working-notes/archive/2022.fyq4.archive.org::datetree/* Completed Tasks")
+(setq org-archive-location "~/vaults/working-notes/archive/2023.q1.archive.org::datetree/* Completed Tasks")
 
 ;; Agenda clock report parameters
 (setq org-agenda-clockreport-parameter-plist

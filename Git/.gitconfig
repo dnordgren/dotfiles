@@ -1,5 +1,7 @@
 [user]
 	name = Derek Nordgren
+	email = derek.nordgren@hudl.com
+	signingkey = 02C1DF8710360A02
 [alias]
 	a = add -A
 	amend = commit -a --amend -S
@@ -14,6 +16,7 @@
 	co = checkout
 	cp = cherry-pick
 	d = diff
+	del = branch -D
 	ds = diff --staged
 	discard = checkout
 	f = fetch --prune
@@ -46,7 +49,7 @@
 	smudge = git-lfs smudge -- %f
 [core]
 	excludesfile = ~/.gitignore_global
-	editor = vim
+	editor = bbedit -w
 [merge]
 	conflictstyle = diff3
 [rerere]
@@ -54,5 +57,8 @@
 [format]
 	signoff = true
 [commit]
-	gpgsign = false
-
+	gpgsign = true
+[difftool "bbdiff"]
+	cmd = /usr/local/bin/bbdiff --wait --resume "$LOCAL" "$REMOTE"
+[init]
+	defaultBranch = main
