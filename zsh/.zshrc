@@ -182,6 +182,10 @@ export PATH="/usr/local/sbin:$PATH"
 export LESS="-Xr"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTCONTROL=ignoredups
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/derek/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -204,4 +208,11 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
+# https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# https://github.com/dvorka/hstr/blob/master/CONFIGURATION.md
+alias hh=hstr                               # hh to be alias for hstr
+setopt histignorespace                      # skip cmds w/ leading space from history
+export HSTR_CONFIG=hicolor                  # get more colors
+# bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
