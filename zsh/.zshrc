@@ -58,6 +58,7 @@ function halp {
   echo "rrg query"
   echo "gtt tag_name"
   echo "ip_pls"
+  echo "fuz"
 }
 
 infra_role_assume () {
@@ -125,13 +126,17 @@ rrg () {
 }
 
 function gtt {
-    readonly tag_name=${1:?"The new tag name must be specified."}
-    export MY_NEW_TAG="$tag_name"
-    echo "executing git tag -a $MY_NEW_TAG -m '$MY_NEW_TAG'"
-    git tag -a $MY_NEW_TAG -m "$MY_NEW_TAG"
-    echo "run gttp to push the tag to origin"
+  readonly tag_name=${1:?"The new tag name must be specified."}
+  export MY_NEW_TAG="$tag_name"
+  echo "executing git tag -a $MY_NEW_TAG -m '$MY_NEW_TAG'"
+  git tag -a $MY_NEW_TAG -m "$MY_NEW_TAG"
+  echo "run gttp to push the tag to origin"
 }
 alias gttp="git push origin $MY_NEW_TAG"
+
+function fuz {
+  fzf --print0 | xargs -0 -o bbedit
+}
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -159,7 +164,7 @@ alias obs="cd ~/vaults/working-notes"
 alias bb="bbedit"
 alias zshconfig="bbedit ~/.zshrc"
 alias td="todoist"
-alias doom="emacs"
+alias doom="emacs -nw"
 alias dl="cd ~/Downloads"
 alias docs="cd ~/Documents/hudl"
 alias repos="cd ~/repos/hudl"
@@ -181,13 +186,13 @@ export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/derek/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+  eval "$__conda_setup"
 else
-    if [ -f "/Users/derek/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/derek/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/derek/opt/anaconda3/bin:$PATH"
-    fi
+  if [ -f "/Users/derek/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+      . "/Users/derek/opt/anaconda3/etc/profile.d/conda.sh"
+  else
+      export PATH="/Users/derek/opt/anaconda3/bin:$PATH"
+  fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
@@ -198,3 +203,5 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
