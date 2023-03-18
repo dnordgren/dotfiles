@@ -5,3 +5,12 @@ Bind <ESC>-F to accept zsh suggestion
 #+BEGIN_SRC sh :results output silent
 $ bindkey '\ef' autosuggest-accept
 #+END_SRC
+
+* Drafts shell scripts
+https://github.com/sylumer/drafts_shell_scripts
+#+BEGIN_SRC sh :results output silent
+gh repo clone sylumer/drafts_shell_scripts
+# move scripts to ~/bin or similar
+# chmod +x to scripts
+# use like `echo "something" | todraft.sh`
+#+END_SRC
