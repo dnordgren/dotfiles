@@ -1,0 +1,28 @@
+# https://github.com/junegunn/fzf
+brew install fzf
+$(brew --prefix)/opt/fzf/install
+
+# https://github.com/dvorka/hstr
+brew install hstr
+hstr --show-configuration >> ~/.zshrc
+
+# https://github.com/sveinbjornt/Sloth
+brew install --cask sloth
+
+brew install jq
+
+brew install kube-ps1 kubectx kubernetes-cli
+
+brew install packer
+
+brew install peco
+
+brew install pre-commit
+
+brew install ripgrep
+
+brew install terraform terraform-docs terraform-ls tfenv tflint
+
+brew install yarn
+
+# adr-tools, gh, gnupg, gnutls, grep, pinentry, pinentry-mac
