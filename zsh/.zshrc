@@ -59,6 +59,7 @@ function halp {
   echo "gtt tag_name"
   echo "ip_pls"
   echo "fuz"
+  echo "gpgready"
 }
 
 infra_role_assume () {
@@ -120,7 +121,7 @@ function route53_query_all_zones {
   Echo "~/Documents/hudl/route53-records.json has been updated"
 }
 
-rrg () {
+function rrg () {
   readonly query=${1:?"Query must be specified."}
   rg $query ~/Documents/hudl/route53-records.json -A 5 -B 5
 }
@@ -136,6 +137,10 @@ alias gttp="git push origin $MY_NEW_TAG"
 
 function fuz {
   fzf --print0 | xargs -0 -o bbedit
+}
+
+function gpgready {
+  echo "gpg ready up" | gpg -er derek@dereknordgren.com | gpg -d
 }
 
 # Preferred editor for local and remote sessions
@@ -210,9 +215,19 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Bind output of "Alt-C" on macOS to fzf's cd mode
+# https://github.com/junegunn/fzf/issues/164#issuecomment-635587493
+bindkey "ç" fzf-cd-widget
+# https://github.com/ohmyzsh/ohmyzsh/issues/3620#issuecomment-75435240
+TRAPWINCH() {
+  zle && { zle reset-prompt; zle -R }
+}
 
 # https://github.com/dvorka/hstr/blob/master/CONFIGURATION.md
 alias hh=hstr                               # hh to be alias for hstr
 setopt histignorespace                      # skip cmds w/ leading space from history
 export HSTR_CONFIG=hicolor                  # get more colors
 # bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
+
+# Add .NET Core SDK tools
+export PATH="$PATH:/Users/derek.nordgren/.dotnet/tools"
