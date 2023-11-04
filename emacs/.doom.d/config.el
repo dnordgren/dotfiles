@@ -26,7 +26,7 @@
 ;; + doom-sourcerer - fav!
 ;; + doom-monokai-spectrum
 ;; + doom-homage-white ; plain/retro theme
-(setq doom-theme 'doom-old-hope)
+(setq doom-theme 'doom-ayu-dark)
 
 ;;;; Editor preferences
 
@@ -88,7 +88,7 @@
 
 (setq org-directory "~/vaults/working-notes")
 
-(setq org-archive-location "~/vaults/working-notes/archive/2023.q1.archive.org::datetree/* Completed Tasks")
+(setq org-archive-location "~/vaults/working-notes/archive/2023/2023-q3-archive/2023.q3.archive.org::datetree/* Completed Tasks")
 
 ;; Agenda clock report parameters
 (setq org-agenda-clockreport-parameter-plist
