@@ -26,7 +26,7 @@
 ;; + doom-sourcerer - fav!
 ;; + doom-monokai-spectrum
 ;; + doom-homage-white ; plain/retro theme
-(setq doom-theme 'doom-ayu-dark)
+(setq doom-theme 'doom-gruvbox)
 
 ;;;; Editor preferences
 

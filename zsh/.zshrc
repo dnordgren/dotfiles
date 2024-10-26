@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Activate Ruby environment manager.
 eval "$(rbenv init -)"
 
@@ -14,10 +12,11 @@ export ZSH="/Users/derek.nordgren/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="pygmalion"
+# The themes sets the prompt format (git, etc)
+ZSH_THEME="af-magic"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -31,17 +30,14 @@ plugins=(
   aws
   docker
   docker-compose
-  droplr
-  git
-  git-prompt
+  # git
+  # git-prompt
   node
   yarn
   zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -60,7 +56,12 @@ function halp {
   echo "ip_pls"
   echo "fuz"
   echo "gpgready"
+  echo "read fan-notes"
 }
+
+#read () {
+#  vim +/Log ~/vaults/working-notes/${1}.md
+#}
 
 infra_role_assume () {
   readonly acct=${1:?"The account ID must be specified."}
@@ -87,7 +88,7 @@ function kube_ctx_set_prod_eks {
   aws eks --region us-east-1 update-kubeconfig --name p-eks-3c86d
 }
 
-ssm () {
+function ssm {
   readonly instance_id=${1:?"The instance_id must be specified."}
   aws ssm start-session --target $instance_id
 }
@@ -104,7 +105,7 @@ function whats_running_any_tcp_port {
   lsof -nP -iTCP -sTCP:LISTEN
 }
 
-whats_running_this_tcp_port () {
+function whats_running_this_tcp_port {
   readonly port=${1:?"The port must be specified."}
   echo "Running $ lsof -nP -iTCP:$port -sTCP:LISTEN"
   lsof -nP -iTCP:"$port" -sTCP:LISTEN
@@ -121,7 +122,7 @@ function route53_query_all_zones {
   Echo "~/Documents/hudl/route53-records.json has been updated"
 }
 
-function rrg () {
+function rrg {
   readonly query=${1:?"Query must be specified."}
   rg $query ~/Documents/hudl/route53-records.json -A 5 -B 5
 }
@@ -133,7 +134,6 @@ function gtt {
   git tag -a $MY_NEW_TAG -m "$MY_NEW_TAG"
   echo "run gttp to push the tag to origin"
 }
-alias gttp="git push origin $MY_NEW_TAG"
 
 function fuz {
   fzf --print0 | xargs -0 -o bbedit
@@ -151,7 +151,6 @@ else
 fi
 
 source ~/.iterm2_shell_integration.zsh
-export PATH=$HOME/bin:$PATH
 
 # https://samuelsson.dev/sign-git-commits-on-github-with-gpg-in-macos/
 # https://gist.github.com/paolocarrasco/18ca8fe6e63490ae1be23e84a7039374
@@ -159,11 +158,12 @@ export PATH=$HOME/bin:$PATH
 export GPG_TTY=$(tty)
 
 # Add pi_rsa so Emacs Tramp works with public key authentication.
-ssh-add ~/.ssh/pi_rsa.pem
+# ssh-add ~/.ssh/pi_rsa.pem
 
 alias ls="ls -lha"
 alias tf="terraform"
 alias g="git"
+alias gttp="git push origin $MY_NEW_TAG"
 alias txtedit="open -a TextEdit" # followed by filename
 alias obs="cd ~/vaults/working-notes"
 alias bb="bbedit"
@@ -174,21 +174,36 @@ alias dl="cd ~/Downloads"
 alias docs="cd ~/Documents/hudl"
 alias repos="cd ~/repos/hudl"
 alias vault="cd ~/vaults/working-notes"
+alias sumo="sumocli"
 
 fpath+=~/.zfunc
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
+# >>> PATH >>>
+export PATH=$HOME/bin:$PATH
 export PATH="$HOME/.rbenv/bin:$PATH"
-
 export PATH="/usr/local/opt/mongodb-community@3.6/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-export LESS="-Xr"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-export HISTFILESIZE=
-export HISTSIZE=
+# Add .NET Core SDK tools
+export PATH="$PATH:/Users/derek.nordgren/.dotnet/tools"
+
+# Todoist CLI completion
+# PROG=todoist source # "$GOPATH/src/github.com/urfave/cli/autocomplete/zsh_autocomplete"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+# <<< PATH <<<
+
+export LESS="-Xr"
+
+export HISTFILESIZE=10000  # Number of lines stored in ~/.zsh_history
+export HISTSIZE=1000       # Number of lines kept in memory
 export HISTCONTROL=ignoredups
 
 # >>> conda initialize >>>
@@ -206,28 +221,25 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
-
+# >>> fzf >>>
 # https://github.com/junegunn/fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Bind output of "Alt-C" on macOS to fzf's cd mode
 # https://github.com/junegunn/fzf/issues/164#issuecomment-635587493
 bindkey "ç" fzf-cd-widget
+# <<< fzf <<<
+
 # https://github.com/ohmyzsh/ohmyzsh/issues/3620#issuecomment-75435240
 TRAPWINCH() {
   zle && { zle reset-prompt; zle -R }
 }
 
+# >>> hstr >>>
 # https://github.com/dvorka/hstr/blob/master/CONFIGURATION.md
 alias hh=hstr                               # hh to be alias for hstr
 setopt histignorespace                      # skip cmds w/ leading space from history
 export HSTR_CONFIG=hicolor                  # get more colors
 # bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
-
-# Add .NET Core SDK tools
-export PATH="$PATH:/Users/derek.nordgren/.dotnet/tools"
+# <<< hstr <<<
