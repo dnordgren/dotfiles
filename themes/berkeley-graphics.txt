@@ -1,0 +1,12 @@
+Theme inspired by colors from
+https://berkeleygraphics.com/typefaces/berkeley-mono/
+
+Green : 07e793
+Yellow: ffc102
+Orange: ff5701
+Black : 000000
+Purple: 4d2a93
+White : ffffff
+Forest: 00704f
+Blue  : 00429f
+Red   : d00120
