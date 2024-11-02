@@ -139,6 +139,15 @@ function fuz {
   fzf --print0 | xargs -0 -o bbedit
 }
 
+function fgf {
+  fzf | xargs -I {} /mnt/c/Windows/System32/notepad.exe {}
+}
+
+function rgr {
+  readonly query=${1:?"Query must be specified."}
+  rg --files-with-matches "$query" | fzf | xargs -I {} /mnt/c/Windows/System32/notepad.exe {}
+}
+
 function gpgready {
   echo "gpg ready up" | gpg -er derek@dereknordgren.com | gpg -d
 }
