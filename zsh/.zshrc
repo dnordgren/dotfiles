@@ -27,14 +27,39 @@ ENABLE_CORRECTION="true"
 HIST_STAMPS="yyyy-mm-dd"
 
 plugins=(
+  # This plugin provides completion support for awscli v2 and a few utilities
+  # to manage AWS profiles/regions and display them in the prompt.
   aws
+  # aliases for BBEdit
+  # If the bb command is called without an argument, launch BBEdit
+  # If bb is passed a directory, cd to it and open it in BBEdit
+  # If bb is passed a file, open it in BBEdit
+  # If bbpb create a new BBEdit document with the contents of the clipboard
+  # If bbd alias for BBEdit diff tool
+  bbedit
+  # adds auto-completion and aliases for docker
   docker
+  # provides completion for docker-compose as well as some aliases for frequent docker-compose commands
   docker-compose
-  # git
-  # git-prompt
-  node
-  yarn
-  zsh-autosuggestions
+  # utilizes the Emacs daemon capability, allowing the user to quickly open frames
+  # whether they are opened in a terminal via a ssh connection, or X frames opened on the same host.
+  # emacs and e launch desktop Emacs
+  # te launches terminal Emacs
+  emacs
+  # The git plugin provides many aliases and a few useful functions.
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git#aliases
+  git
+  # Maybe later...but cool wrapper around conventional commits
+  #git-commit
+  # Handy command line tools for dealing with json data.
+  # Uses node, python3, ruby (in order) for handling JSON.
+  # pp_json: pretty prints json.
+  # is_json: returns true if valid json; false otherwise.
+  # urlencode_json: returns a url encoded string for the given json.
+  # urldecode_json: returns decoded json for the given url encoded string.
+  jsontools
+  # interactive way to change directories in zsh using fzf
+  zsh-interactive-cd
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -140,7 +165,8 @@ function fuz {
 }
 
 function fgf {
-  fzf | xargs -I {} /mnt/c/Windows/System32/notepad.exe {}
+  # fd is much faster for WSL between Linux and Windows filesystems than find
+  fd . | fzf | xargs -I {} /mnt/c/Windows/System32/notepad.exe {}
 }
 
 function rgr {
@@ -174,6 +200,8 @@ alias tf="terraform"
 alias g="git"
 alias gttp="git push origin $MY_NEW_TAG"
 alias txtedit="open -a TextEdit" # followed by filename
+alias notepad="/mnt/c/Windows/System32/notepad.exe"
+alias fd="fdfind"
 alias obs="cd ~/vaults/working-notes"
 alias bb="bbedit"
 alias zshconfig="bbedit ~/.zshrc"
