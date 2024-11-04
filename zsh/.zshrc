@@ -79,9 +79,13 @@ function halp {
   echo "rrg query"
   echo "gtt tag_name"
   echo "ip_pls"
-  echo "fuz"
   echo "gpgready"
-  echo "read fan-notes"
+  # echo "read fan-notes"
+  echo "fuz | fzf to BBEdit"
+  echo "fgw | fzf to Notepad.exe (Windows)"
+  echo "fgm | fzf to TextEdit.app (macOS)"
+  echo "rgw \"query\" | ripgrep to Notepad.exe (Windows)"
+  echo "rgm \"query\" | ripgrep to TextEdit.app (macOS)"
 }
 
 #read () {
@@ -164,14 +168,27 @@ function fuz {
   fzf --print0 | xargs -0 -o bbedit
 }
 
-function fgf {
+# Windows fzf to Notepad.exe
+function fgw {
   # fd is much faster for WSL between Linux and Windows filesystems than find
   fd . | fzf | xargs -I {} /mnt/c/Windows/System32/notepad.exe {}
 }
 
-function rgr {
+# macOS fzf to TextEdit.app
+function fgm {
+  fzf | xargs -I {} open -a TextEdit {}
+}
+
+# Windows ripgrep to Notepad.exe
+function rgw {
   readonly query=${1:?"Query must be specified."}
   rg --files-with-matches "$query" | fzf | xargs -I {} /mnt/c/Windows/System32/notepad.exe {}
+}
+
+# macOS ripgrep to TextEdit.app
+function rgm {
+  readonly query=${1:?"Query must be specified."}
+  rg --files-with-matches "$query" | fzf | xargs -I {} open -a TextEdit {}
 }
 
 function gpgready {
