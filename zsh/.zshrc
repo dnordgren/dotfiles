@@ -86,6 +86,7 @@ function halp {
   echo "fgm | fzf to TextEdit.app (macOS)"
   echo "rgw \"query\" | ripgrep to Notepad.exe (Windows)"
   echo "rgm \"query\" | ripgrep to TextEdit.app (macOS)"
+  echo "converta filename_stem | Convert mp3 to m4a with ffmpeg for voice memos"
 }
 
 #read () {
@@ -193,6 +194,10 @@ function rgm {
 
 function gpgready {
   echo "gpg ready up" | gpg -er derek@dereknordgren.com | gpg -d
+}
+
+function converta {
+    ffmpeg -i "$1.MP3" -c:a aac "$1.M4A"
 }
 
 # Preferred editor for local and remote sessions
