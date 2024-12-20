@@ -3,7 +3,7 @@
 (setq user-full-name "Derek Nordgren"
       user-mail-address "derek.nordgren@protonmail.com")
 
-(setq doom-font (font-spec :family "iA Writer Mono S" :size 16))
+(setq doom-font (font-spec :family "Berkeley Mono" :size 16))
 
 ;; See themes: https://github.com/hlissner/emacs-doom-themes
 ;; Favorites:
@@ -17,7 +17,8 @@
 ;; + doom-nova
 ;; + doom-old-hope ; star wars theme
 ;; + doom-peacock
-;; + doom-plain ; grayscale
+;; + doom-plain      ; grayscale
+;; + doom-plain-dark ; grayscale
 ;; + doom-rouge
 ;; + doom-dracula
 ;; + doom-monokai-spectrum https://monokai.pro/sublime-text
@@ -26,26 +27,33 @@
 ;; + doom-sourcerer - fav!
 ;; + doom-monokai-spectrum
 ;; + doom-homage-white ; plain/retro theme
-(setq doom-theme 'doom-gruvbox)
+;; + doom-homage-black ; plain/retro theme
+;; + doom-ir-black     ; plain/retro theme, slightly bolder than homage
+;; + doom-gruvbox
+;; + doom-gruvbox-light
+;; + doom-pine ; green-tinged gruvbox
+(setq doom-theme 'doom-sourcerer)
 
 ;;;; Editor preferences
 
 ;; Disable Alt-3 as £ to support hash on British keyboard.
 (define-key key-translation-map (kbd "M-3") (kbd "#"))
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+;; This determines the style of line numbers in effect.
+;; If set to t, line numbers are normal.
+;; If set to `nil', line numbers are disabled.
+;; For relative line numbers, set this to 'relative.
+(setq display-line-numbers-type 'relative)
 
 ;; Enable auto-fill-mode (auto-hard line wrap) for text files
 ;; use M-q to reformat just the current block of text
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
-
+;; (add-hook 'text-mode-hook 'turn-on-auto-fill)
 ;; Enable visual line mode for text files
-;; (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 ;; Use soft tabs
-(setq-default indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil
+              tab-width 4)
 
 (add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
 
