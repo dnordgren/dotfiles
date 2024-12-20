@@ -20,10 +20,10 @@
        ;;japanese
 
        :completion
-       company             ; the ultimate code completion backend
-       ;;helm              ; the *other* search engine for love and life
-       ;;ido               ; the other *other* search engine...
-       ivy                 ; a search engine for love and life
+       (company +childframe) ; the ultimate code completion backend
+       ;;helm                ; the *other* search engine for love and life
+       ;;ido                 ; the other *other* search engine...
+       ivy                   ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -90,7 +90,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        ;;lookup              ; navigate your code and its documentation
-       ;;lsp
+       (lsp +eglot)        ; Use eglot instead of lsp-mode to implement the Language Server client in Emacs. Depends on NPM vscode-langservers-extracted lsp being installed/running.
        ;;macos             ; MacOS-specific commands
        magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
@@ -162,7 +162,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
+       (web +lsp)          ; the tubes
 
        :email
        ;;(mu4e +gmail)

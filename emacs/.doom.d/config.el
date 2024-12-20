@@ -76,6 +76,20 @@
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 
+;; Web development
+;; Set up eglot web lang server
+(set-eglot-client! 'web-mode '("vscode-html-language-server" "--stdio"))
+;; Use web mode rather than HTML/CSS/JS modes
+;; this helps with text prediction
+(use-package! web-mode
+  :mode "\\.html\\'")
+;; Disable eldoc as it's annoying in web-mode
+(global-eldoc-mode -1)
+
+;; enable matchit
+;; (use % to navigate to matching tags in e.g. HTML)
+(global-evil-matchit-mode 1)
+
 ;;; magit configuration
 ;; enable git commit signing with gpg in magit (see git blame on this commit)
 (pinentry-start)

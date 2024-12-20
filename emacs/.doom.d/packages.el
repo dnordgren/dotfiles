@@ -12,6 +12,9 @@
 ;; pinentry for gpg - git commit signing
 (package! pinentry)
 
+;; matchit wasn't active by default?
+(package! evil-matchit)
+
 ;; =====
 
 ;; Doom Emacs docs:
