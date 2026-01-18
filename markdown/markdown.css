@@ -21,9 +21,9 @@ body {
     --fgColor-attention: #d29922;
     --fgColor-danger: #f85149;
     --fgColor-done: #ab7df8;
-    --bgColor-default: #0c0c0d; /* Claude.ai dark mode color */
-    --bgColor-muted: #151b23;
-    --bgColor-neutral-muted: #656c7633;
+    --bgColor-default: #282826; /* Claude.ai dark mode color */
+    --bgColor-muted: #3d3d3a; /* Claude.ai input color */
+    --bgColor-neutral-muted: #242422; /* Claude.ai darker dark color */
     --bgColor-attention-muted: #bb800926;
     --borderColor-default: #3d444d;
     --borderColor-muted: #3d444db3;
@@ -78,9 +78,9 @@ body {
     --fgColor-attention: #9a6700;
     --fgColor-danger: #d1242f;
     --fgColor-done: #8250df;
-    --bgColor-default: #faf9f7; /* Claude.ai offwhite color */
-    --bgColor-muted: #f6f8fa;
-    --bgColor-neutral-muted: #818b981f;
+    --bgColor-default: #f1efe7; /* Claude.ai offwhite color */
+    --bgColor-muted: #ffffff; /* Claude.ai input color (white) */
+    --bgColor-neutral-muted: #eeeae2; /* Claude.ai darker offwhite color */
     --bgColor-attention-muted: #fff8c5;
     --borderColor-default: #d1d9e0;
     --borderColor-muted: #d1d9e0b3;

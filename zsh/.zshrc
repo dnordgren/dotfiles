@@ -217,23 +217,18 @@ export GPG_TTY=$(tty)
 # Add pi_rsa so Emacs Tramp works with public key authentication.
 # ssh-add ~/.ssh/pi_rsa.pem
 
-alias ls="ls -lha"
-alias tf="terraform"
-alias g="git"
-alias gttp="git push origin $MY_NEW_TAG"
-alias txtedit="open -a TextEdit" # followed by filename
-alias notepad="/mnt/c/Windows/System32/notepad.exe"
-alias fd="fdfind"
-alias obs="cd ~/vaults/working-notes"
 alias bb="bbedit"
-alias zshconfig="bbedit ~/.zshrc"
-alias td="todoist"
-alias doom="emacs -nw"
 alias dl="cd ~/Downloads"
-alias docs="cd ~/Documents/hudl"
+alias doom="emacs -nw"
+alias fd="fdfind"
+alias g="git"
+alias ls="ls -lha"
+alias notepad="/mnt/c/Windows/System32/notepad.exe"
 alias repos="cd ~/repos/hudl"
+alias t="open -a TextEdit" # followed by filename
+alias tf="terraform"
 alias vault="cd ~/vaults/working-notes"
-alias sumo="sumocli"
+alias zshconfig="bbedit ~/.zshrc"
 
 fpath+=~/.zfunc
 

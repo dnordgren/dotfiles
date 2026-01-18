@@ -60,13 +60,15 @@ int main(int argc, char* argv[]) {
     char* file_path = get_file_path(type);
     char cmd[1024];
 
-    // Assumes ripgrep is installed and in PATH
-    sprintf(cmd, "rg '%s' %s %s",
-        show_done ? "@DONE" : "@TODO",
-        all_lines ? "-A 999" : "-A 3",
+    const char* pattern = all_lines || show_done ?
+        "'(?ms)%s.*?\\n\\n'" :  // Multiline pattern to match until double newline
+        "'%s'";                 // Simple pattern for preview mode
+
+    sprintf(cmd, "rg %s %s %s",
+        pattern,
+        all_lines || show_done ? "-U" : "-A 3",  // Use multiline mode when needed
         file_path);
 
-    // Remove this line to use ripgrep's default output
     execute_and_clean(cmd);
 
     free(file_path);
