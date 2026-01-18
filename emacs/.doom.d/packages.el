@@ -15,6 +15,15 @@
 ;; matchit wasn't active by default?
 (package! evil-matchit)
 
+;; Use Olivetti to nicely control window margins to improve writing environment
+(package! olivetti)
+
+;; dynamically swap color scheme based on system settings
+(package! auto-dark)
+
+;; Use for node usage in linter
+(package! exec-path-from-shell)
+
 ;; =====
 
 ;; Doom Emacs docs:

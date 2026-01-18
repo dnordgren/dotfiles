@@ -3,7 +3,7 @@
 (setq user-full-name "Derek Nordgren"
       user-mail-address "derek.nordgren@protonmail.com")
 
-(setq doom-font (font-spec :family "Berkeley Mono" :size 16))
+(setq doom-font (font-spec :family "Berkeley Mono" :size 14))
 
 ;; See themes: https://github.com/hlissner/emacs-doom-themes
 ;; Favorites:
@@ -57,6 +57,78 @@
 
 (add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
 
+;; Set up vector search from vaults
+(defun vault-vector-search ()
+  "Search the vault using the local vector database."
+  (interactive)
+  (let* ((query (read-string "Vector Search: "))
+         ;; Robust project root finding
+         (root (or (and (bound-and-true-p projectile-mode)
+                        (projectile-project-root))
+                   (and (fboundp 'project-root)
+                        (project-root (project-current)))
+                   default-directory))
+         (venv-python (expand-file-name ".venv/bin/python3" root))
+         ;; Use venv python if exists, otherwise fallback to system python
+         (python (if (file-exists-p venv-python) venv-python "python3"))
+         (script (expand-file-name "scripts/vectorize.py" root))
+         (command (format "%s %s search %s --limit 20 --json"
+                          (shell-quote-argument python)
+                          (shell-quote-argument script)
+                          (shell-quote-argument query))))
+
+    (if (not (file-exists-p script))
+        (message "Error: scripts/vectorize.py not found at %s" script)
+      (message "Searching...")
+      (let ((json-str (shell-command-to-string command)))
+        (condition-case err
+            (let* ((results (json-parse-string json-str :object-type 'alist))
+                   (candidates (mapcar (lambda (item)
+                                         (let ((path (alist-get 'path item))
+                                               (content (alist-get 'content item))
+                                               (line (alist-get 'line item)))
+                                           (cons (format "%s:%s | %s..."
+                                                         (file-name-nondirectory path)
+                                                         line
+                                                         (substring content 0 (min 80 (length content))))
+                                                 (list path line))))
+                                       results)))
+              (if (null candidates)
+                  (message "No results found.")
+                (let ((selection (completing-read "Results: " candidates)))
+                  (when selection
+                    (let* ((data (cdr (assoc selection candidates)))
+                           (file (nth 0 data))
+                           (line (nth 1 data)))
+                      (if (file-exists-p file)
+                          (progn
+                            (find-file file)
+                            (when line
+                              (goto-char (point-min))
+                              (forward-line (1- line))))
+                        (message "File not found: %s" file)))))))
+          (json-parse-error
+           (message "Error parsing JSON output: %s. Raw output: %s" err json-str)))))))
+
+;; Map the key
+(map! :leader
+      :prefix "n"
+      :desc "Vector Search" "V" #'vault-vector-search)
+
+;; Use Olivetti to control window margins for a nice writing environment
+;; GitHub rnkn/olivetti
+(use-package olivetti
+  :hook (text-mode . olivetti-mode)
+  :config
+  (setq olivetti-body-width 140))
+
+;; use auto-dark to dynamically swap theme based on system night/day setting
+(use-package! auto-dark
+  :after doom-ui
+  :config
+  (setq! auto-dark-dark-theme 'doom-homage-black
+         auto-dark-light-theme 'doom-homage-white) (auto-dark-mode))
+
 ;;;; Extensions configuration
 
 ;; Configure projectile
@@ -72,6 +144,13 @@
 (setq treemacs-sorting 'alphabetic-case-insensitive-desc)
 
 ;;;; IDE configuration
+
+;; Load nvm and use default Node version
+(use-package! exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-env "NVM_DIR")))
 
 ;; Markdown linting
 (setq flycheck-markdown-mdl-style "~/.mdlrc")
@@ -96,11 +175,13 @@
 
 ;; enable matchit
 ;; (use % to navigate to matching tags in e.g. HTML)
-(global-evil-matchit-mode 1)
+(after! evil-matchit
+  (global-evil-matchit-mode 1))
 
 ;;; magit configuration
 ;; enable git commit signing with gpg in magit (see git blame on this commit)
-(pinentry-start)
+(after! epa
+  (pinentry-start))
 
 ;; configure suffixes to allow choosing gpg key at commit-time
 ;; https://github.com/magit/magit/issues/3771#issuecomment-477589185
@@ -110,7 +191,7 @@
 
 (setq org-directory "~/vaults/working-notes")
 
-(setq org-archive-location "~/vaults/working-notes/archive/2023/2023-q3-archive/2023.q3.archive.org::datetree/* Completed Tasks")
+;; (setq org-archive-location "~/vaults/working-notes/archive/2023/2023-q3-archive/2023.q3.archive.org::datetree/* Completed Tasks")
 
 ;; Agenda clock report parameters
 (setq org-agenda-clockreport-parameter-plist
@@ -169,10 +250,10 @@
 ;;)
 
 ;; Send mail
-(setq message-send-mail-function 'smtpmail-send-it
-smtpmail-auth-credentials "~/.authinfo"
-smtpmail-smtp-server "127.0.0.1"
-smtpmail-stream-type 'starttls
-smtpmail-smtp-service 1025)
+;; (setq message-send-mail-function 'smtpmail-send-it
+;; smtpmail-auth-credentials "~/.authinfo"
+;; smtpmail-smtp-server "127.0.0.1"
+;; smtpmail-stream-type 'starttls
+;; smtpmail-smtp-service 1025)
 
 ;; (add-to-list 'gnutls-trustfiles (expand-file-name "~/.ssh/protonbridge.pem"))
