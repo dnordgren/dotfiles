@@ -131,12 +131,31 @@
   ;; Ensure you have run `claude login` in your terminal first
   (setq agent-shell-anthropic-claude-authentication
         (agent-shell-anthropic-make-authentication :login t)))
+
+(defun my-move-line-up ()
+  "Move the current line up."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun my-move-line-down ()
+  "Move the current line down."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(map! :ni "M-<up>"   #'my-move-line-up
+      :ni "M-<down>" #'my-move-line-down)
+
 ;; Use Olivetti to control window margins for a nice writing environment
 ;; GitHub rnkn/olivetti
-(use-package olivetti
-  :hook (text-mode . olivetti-mode)
-  :config
-  (setq olivetti-body-width 140))
+;; (use-package olivetti
+;;  :hook (text-mode . olivetti-mode)
+;;  :config
+;;  (setq olivetti-body-width 140))
 
 ;; use auto-dark to dynamically swap theme based on system night/day setting
 (use-package! auto-dark
