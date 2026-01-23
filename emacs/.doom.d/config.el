@@ -18,10 +18,9 @@
 
 (setq doom-font (font-spec :family "Berkeley Mono" :size 14))
 
-;; Theme selection
+;; Theme selection handled by auto-dark (see section 3)
 ;; See full list: https://github.com/doomemacs/themes
-;; Current favorites: doom-sourcerer, doom-nord, doom-homage-white/black, doom-gruvbox, doom-dracula
-(setq doom-theme 'doom-sourcerer)
+;; Favorites: doom-sourcerer, doom-nord, doom-homage-white/black, doom-gruvbox, doom-dracula
 
 ;;;; 2. Editor Preferences
 
@@ -69,7 +68,7 @@
   :config
   (setq! auto-dark-dark-theme 'doom-homage-black
          auto-dark-light-theme 'doom-homage-white)
-  (auto-dark-mode))
+  (auto-dark-mode 1))
 
 ;;;; 4. Extensions Configuration
 
