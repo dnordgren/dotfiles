@@ -16,13 +16,20 @@
 (package! evil-matchit)
 
 ;; Use Olivetti to nicely control window margins to improve writing environment
-(package! olivetti)
+;; (package! olivetti)
 
 ;; dynamically swap color scheme based on system settings
 (package! auto-dark)
 
 ;; Use for node usage in linter
 (package! exec-path-from-shell)
+
+;;;; Set up Doom-Gemini (Doom Claude Code) integration
+;; Installs the Agent Client Protocol (ACP) library
+(package! acp :recipe (:host github :repo "xenodium/acp.el"))
+
+;; Installs the shell interface for Claude/Gemini
+(package! agent-shell :recipe (:host github :repo "xenodium/agent-shell"))
 
 ;; =====
 

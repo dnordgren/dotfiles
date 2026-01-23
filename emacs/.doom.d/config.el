@@ -115,6 +115,22 @@
       :prefix "n"
       :desc "Vector Search" "V" #'vault-vector-search)
 
+;;;; Set up Doom-Gemini (Doom Claude Code) integration
+(use-package! agent-shell
+  :config
+  ;; Optional: Inherit your shell environment (PATH, etc.)
+  (setq agent-shell-process-environment
+        (agent-shell-make-environment-variables :inherit-env t))
+
+  ;; For Gemini CLI:
+  ;; Ensure you have run `gcloud auth login` or set GOOGLE_API_KEY in your shell
+  (setq agent-shell-google-authentication
+        (agent-shell-google-make-authentication :login t))
+
+  ;; For Claude Code:
+  ;; Ensure you have run `claude login` in your terminal first
+  (setq agent-shell-anthropic-claude-authentication
+        (agent-shell-anthropic-make-authentication :login t)))
 ;; Use Olivetti to control window margins for a nice writing environment
 ;; GitHub rnkn/olivetti
 (use-package olivetti
