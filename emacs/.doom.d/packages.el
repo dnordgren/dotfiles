@@ -1,8 +1,8 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 
-;; racer for Rust
-(package! racer)
+;; racer for Rust - *more modern packages may be available*
+;; (package! racer)
 
 ;; aggregate clock reports
 ;; https://github.com/tbanel/orgaggregate
@@ -83,12 +83,6 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;;;; Uninstalled packages
-;;; org-logseq
-;;(package! org-logseq :recipe
-;;  (:host github
-;;   :repo "llcc/org-logseq"
-;;   :files ("*")))
 
 ;;; Install package to visual wrap lines at e.g. 80 chars
 ;; Replacement for built-in but deficient visual-line-mode
