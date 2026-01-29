@@ -1,6 +1,3 @@
-# Activate Ruby environment manager.
-eval "$(rbenv init -)"
-
 # Activate Node version manager.
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -204,7 +201,7 @@ function converta {
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='bbedit'
+  export EDITOR='bbedit --wait'
 fi
 
 source ~/.iterm2_shell_integration.zsh
@@ -219,12 +216,12 @@ export GPG_TTY=$(tty)
 
 alias bb="bbedit"
 alias dl="cd ~/Downloads"
-alias doom="emacs -nw"
+alias doom="/opt/homebrew/bin/emacsclient -nw -a ''"
 alias fd="fdfind"
 alias g="git"
 alias ls="ls -lha"
 alias notepad="/mnt/c/Windows/System32/notepad.exe"
-alias repos="cd ~/repos/hudl"
+alias repos="cd ~/bulletfarm/hudl"
 alias t="open -a TextEdit" # followed by filename
 alias tf="terraform"
 alias vault="cd ~/vaults/working-notes"

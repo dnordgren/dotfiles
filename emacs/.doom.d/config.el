@@ -52,7 +52,8 @@
   :after doom-ui
   :config
   (setq! auto-dark-dark-theme 'doom-homage-black
-         auto-dark-light-theme 'doom-homage-white)
+         auto-dark-light-theme 'doom-homage-white
+         auto-dark-detection-method 'osascript)  ;; Use AppleScript instead of dark-mode command
   (auto-dark-mode 1))
 
 ;;;; 4. Extensions Configuration
