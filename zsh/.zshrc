@@ -224,7 +224,7 @@ alias notepad="/mnt/c/Windows/System32/notepad.exe"
 alias repos="cd ~/bulletfarm/hudl"
 alias t="open -a TextEdit" # followed by filename
 alias tf="terraform"
-alias vault="cd ~/vaults/working-notes"
+alias vault="cd ~/vaults/hudl"
 alias zshconfig="bbedit ~/.zshrc"
 
 fpath+=~/.zfunc
@@ -239,6 +239,7 @@ export PATH="/usr/local/opt/mongodb-community@3.6/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:/Users/derek.nordgren/.local/bin"
 
 # Add .NET Core SDK tools
 export PATH="$PATH:/Users/derek.nordgren/.dotnet/tools"
@@ -294,3 +295,7 @@ setopt histignorespace                      # skip cmds w/ leading space from hi
 export HSTR_CONFIG=hicolor                  # get more colors
 # bindkey -s "\C-r" "\C-a hstr -- \C-j"     # bind hstr to Ctrl-r (for Vi mode check doc)
 # <<< hstr <<<
+
+# Claude Code
+export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_PROFILE=SandboxAdmin_Sandbox_1355
