@@ -4,6 +4,10 @@ unbind-key C-Space
 bind-key C-Space send-prefix
 set -g base-index 1
 
+# Pass through extended keys (CSI u mode) for Shift-Enter, etc.
+set -s extended-keys always
+set -as terminal-features 'xterm*:extkeys'
+
 # Easy config reload
 bind-key R source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
 
@@ -76,7 +80,7 @@ set-window-option -g display-panes-time 1500
 set-option -g status-interval 1
 set-option -g status-left ''
 set-option -g status-right '%l:%M%p'
-set-window-option -g window-status-current-fg magenta
+set-window-option -g window-status-current-style fg=magenta
 set-option -g status-fg default
 
 # Status Bar solarized-dark (default)

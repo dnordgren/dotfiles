@@ -36,6 +36,7 @@
 
 ;; File associations
 (add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
 
 ;; Keybindings
 ;; Disable Alt-3 as £ to support hash on British keyboard
@@ -57,6 +58,12 @@
   (auto-dark-mode 1))
 
 ;;;; 4. Extensions Configuration
+
+;; CSV mode: hanging indent on wrapped lines
+(use-package! csv-mode
+  :hook (csv-mode . (lambda ()
+                      (setq word-wrap t
+                            wrap-prefix "  "))))
 
 ;; Projectile
 ;; Note: Add your project directories to projectile-project-search-path
@@ -145,3 +152,16 @@
   ;; For Claude Code: ensure you have run `claude login` in your terminal first
   (setq agent-shell-anthropic-claude-authentication
         (agent-shell-anthropic-make-authentication :login t)))
+
+;;;; Custom Projectile Archive Buffer
+
+(defun my-setup-projectile-archive-buffer (&rest _)
+  "Switch to and setup the projectile archive buffer."
+  (let ((buffer "*projectile-command*"))
+    (when (get-buffer buffer)
+      (switch-to-buffer buffer)
+      (with-current-buffer buffer
+        (define-key (current-local-map) (kbd "ESC") 'kill-this-buffer)))))
+
+(advice-add #'+projectile/archive :after #'my-setup-projectile-archive-buffer)
+
