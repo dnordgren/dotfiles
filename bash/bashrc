@@ -66,19 +66,9 @@ PS1="${_B}\w${_Y}\$(__prompt_git)${_R} > "
 unset _B _Y _R
 
 # ============================================================
-# NVM (lazy-loaded for fast startup)
+# FNM (Fast Node Manager)
 # ============================================================
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-
-_nvm_lazy_load() {
-    unset -f nvm node npm npx
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-}
-nvm() { _nvm_lazy_load; nvm "$@"; }
-node() { _nvm_lazy_load; node "$@"; }
-npm()  { _nvm_lazy_load; npm "$@"; }
-npx()  { _nvm_lazy_load; npx "$@"; }
+eval "$(fnm env --use-on-cd --shell bash)"
 
 # ============================================================
 # FZF
