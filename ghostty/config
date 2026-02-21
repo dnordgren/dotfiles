@@ -1,5 +1,11 @@
 # Shell
 command = /opt/homebrew/bin/bash
+term = xterm-256color
+
+# Window
+macos-titlebar-style = hidden
+copy-on-select = clipboard
+macos-option-as-alt = left
 
 # Font
 font-family = Berkeley Mono SemiCondensed
