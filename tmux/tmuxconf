@@ -48,3 +48,9 @@ set -g history-limit 50000
 set -g renumber-windows on
 set -g base-index 1
 setw -g pane-base-index 1
+
+# Bind 'prefix + =' to balance panes horizontally
+bind = select-layout even-horizontal
+
+# Bind 'prefix + -' to balance panes vertically
+bind - select-layout even-vertical
