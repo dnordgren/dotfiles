@@ -1,0 +1,4 @@
+# ~/.bash_profile
+# macOS login shells (including Ghostty's default) source this file.
+# We keep config in ~/.bashrc for portability and source it from here.
+[[ -f ~/.bashrc ]] && source ~/.bashrc

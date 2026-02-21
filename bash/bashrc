@@ -1,26 +1,183 @@
-# alias to Homebrew version of Vim (8.0)
-export PATH="/usr/local/opt/vim@8.0/bin:$PATH"
+# Return early if not interactive
+[[ $- != *i* ]] && return
 
-# rearrange command prompt
-export PS1="\\[$(tput setaf 1)\\]\W\\[$(tput sgr0)\\]$ "
+# ============================================================
+# BASH OPTIONS
+# ============================================================
+shopt -s histappend    # Append to history file, don't overwrite
+shopt -s checkwinsize  # Update LINES/COLUMNS after each command
+shopt -s cdspell       # Fix minor typos in cd paths
+shopt -s globstar      # Enable **/ recursive globs (bash 4+)
+shopt -s nocaseglob    # Case-insensitive tab completion
 
-# colors
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
+# ============================================================
+# HISTORY
+# ============================================================
+export HISTFILESIZE=10000
+export HISTSIZE=10000
+export HISTCONTROL=ignoredups:ignorespace
+export HISTTIMEFORMAT='%Y-%m-%d %T  '
+export HISTIGNORE="ls:ll:cd:pwd:exit:clear:history"
+PROMPT_COMMAND='history -a'  # Persist each command immediately (important for C-r)
 
-alias ls='ls -lGFh'
-alias g='git'
-alias shit='sudo $(history -p \!\!)'
-alias whatmyip='ifconfig | grep "inet"'
-alias code='code-insiders'
-
-# git tab completion
-if [ -f ~/.git-completion.bash ]; then
-    ~/.git-completion.bash
+# ============================================================
+# BASH COMPLETION (Homebrew)
+# ============================================================
+if [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]]; then
+    source "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
 
-# Better Git prompt
-# source ~/.oh-my-git/prompt.sh
+# ============================================================
+# PATH
+# ============================================================
+export PATH="$HOME/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
 
-# Default session start directory
-#cd ~/hudl-reports/Hudl.Reports.Webapp
+# ============================================================
+# ENVIRONMENT
+# ============================================================
+if [[ -n "$SSH_CONNECTION" ]]; then
+    export EDITOR='vim'
+else
+    export EDITOR='bbedit --wait'
+fi
+export GPG_TTY=$(tty)
+export LESS="-Xr"
+
+# Redash/Hudl data warehouse API key (stored in macOS Keychain)
+# To update: security add-generic-password -U -a "$USER" -s "REDASH_API_KEY" -w "newkeyhere"
+export REDASH_API_KEY=$(security find-generic-password -a "$USER" -s "REDASH_API_KEY" -w 2>/dev/null)
+
+# ============================================================
+# PROMPT (replaces oh-my-zsh af-magic)
+# ============================================================
+__prompt_git() {
+    local b; b=$(git symbolic-ref --short HEAD 2>/dev/null) || return
+    local dirty; [[ -n $(git status --porcelain --untracked-files=no 2>/dev/null) ]] && dirty="*"
+    echo " ($b$dirty)"
+}
+_B='\[\033[0;34m\]'  # blue
+_Y='\[\033[0;33m\]'  # yellow
+_R='\[\033[0m\]'     # reset
+PS1="${_B}\w${_Y}\$(__prompt_git)${_R} > "
+unset _B _Y _R
+
+# ============================================================
+# NVM (lazy-loaded for fast startup)
+# ============================================================
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+
+_nvm_lazy_load() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+}
+nvm() { _nvm_lazy_load; nvm "$@"; }
+node() { _nvm_lazy_load; node "$@"; }
+npm()  { _nvm_lazy_load; npm "$@"; }
+npx()  { _nvm_lazy_load; npx "$@"; }
+
+# ============================================================
+# FZF
+# ============================================================
+eval "$(fzf --bash)"
+
+# ============================================================
+# AWS COMPLETION
+# ============================================================
+if command -v aws_completer &>/dev/null; then
+    complete -C "$(which aws_completer)" aws
+fi
+
+# ============================================================
+# ALIASES
+# ============================================================
+alias bb="bbedit"
+alias bashconfig="bbedit ~/.bashrc"
+alias dl="cd ~/Downloads"
+alias doom="/opt/homebrew/bin/emacsclient -nw -a ''"
+alias g="git"
+alias ls="ls -lha"
+alias repos="cd ~/bulletfarm/hudl"
+alias t="open -a TextEdit"
+alias tf="terraform"
+alias vault="cd ~/vaults/hudl"
+
+# ============================================================
+# FUNCTIONS
+# ============================================================
+
+function halp {
+    echo "aws_role_unset"
+    echo "ssm instance_id"
+    echo "whats_running_any_tcp_port"
+    echo "whats_running_this_tcp_port port"
+    echo "rrg query"
+    echo "gtt tag_name"
+    echo "ip_pls"
+    echo "gpgready"
+    echo "fuz | fzf to BBEdit"
+    echo "fgm | fzf to TextEdit.app"
+    echo "rgm \"query\" | ripgrep to TextEdit.app"
+    echo "converta filename_stem | Convert MP3 to M4A with ffmpeg"
+}
+
+function ip_pls {
+    local my_ip
+    my_ip=$(curl -s ipinfo.io/ip)
+    echo "$my_ip"
+    echo "$my_ip" | pbcopy
+    echo "IP copied to clipboard"
+}
+
+function whats_running_any_tcp_port {
+    echo "Running: lsof -nP -iTCP -sTCP:LISTEN"
+    lsof -nP -iTCP -sTCP:LISTEN
+}
+
+function whats_running_this_tcp_port {
+    local port=${1:?"The port must be specified."}
+    echo "Running: lsof -nP -iTCP:$port -sTCP:LISTEN"
+    lsof -nP -iTCP:"$port" -sTCP:LISTEN
+}
+
+function fuz {
+    fzf --print0 | xargs -0 -o bbedit
+}
+
+function fgm {
+    fzf | xargs -I {} open -a TextEdit {}
+}
+
+function rgm {
+    local query=${1:?"Query must be specified."}
+    rg --files-with-matches "$query" | fzf | xargs -I {} open -a TextEdit {}
+}
+
+function gpgready {
+    echo "gpg ready up" | gpg -er derek@dereknordgren.com | gpg -d
+}
+
+function converta {
+    ffmpeg -i "$1.MP3" -c:a aac "$1.M4A"
+}
+
+function gtt {
+    local tag_name=${1:?"The new tag name must be specified."}
+    export MY_NEW_TAG="$tag_name"
+    echo "executing: git tag -a $MY_NEW_TAG -m '$MY_NEW_TAG'"
+    git tag -a "$MY_NEW_TAG" -m "$MY_NEW_TAG"
+    echo "run: git push origin $MY_NEW_TAG"
+}
+
+function aws_role_unset {
+    unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+}
+
+function ssm {
+    local instance_id=${1:?"The instance_id must be specified."}
+    aws ssm start-session --target "$instance_id"
+}
