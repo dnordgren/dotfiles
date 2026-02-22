@@ -3,7 +3,7 @@ command = /opt/homebrew/bin/bash
 term = xterm-256color
 
 # Window
-macos-titlebar-style = hidden
+macos-titlebar-style = native
 copy-on-select = clipboard
 macos-option-as-alt = left
 
@@ -42,3 +42,7 @@ palette = 12=#83a598
 palette = 13=#d3869b
 palette = 14=#8ec07c
 palette = 15=#ebdbb2
+
+# App Icon
+# fav: glass, holographic, retro
+macos-icon = retro

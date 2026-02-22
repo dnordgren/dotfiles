@@ -34,7 +34,7 @@ export PATH="$HOME/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
 
 # ============================================================
 # ENVIRONMENT
@@ -87,10 +87,16 @@ fi
 # ============================================================
 alias bb="bbedit"
 alias bashconfig="bbedit ~/.bashrc"
+alias bdr="bd sync && bd ready"
 alias dl="cd ~/Downloads"
 alias doom="/opt/homebrew/bin/emacsclient -nw -a ''"
+alias dr="doom_restart"
 alias g="git"
+alias gsig="git log -1 --show-signature"
 alias ls="ls -lha"
+alias mdfix="npx markdownlint-cli2 --fix"
+alias mdlint="npx markdownlint-cli2"
+alias reload="source ~/.bashrc"
 alias repos="cd ~/bulletfarm/hudl"
 alias t="open -a TextEdit"
 alias tf="terraform"
@@ -109,10 +115,14 @@ function halp {
     echo "gtt tag_name"
     echo "ip_pls"
     echo "gpgready"
-    echo "fuz | fzf to BBEdit"
-    echo "fgm | fzf to TextEdit.app"
-    echo "rgm \"query\" | ripgrep to TextEdit.app"
+    echo "fuz | fzf to BBEdit (--textedit for TextEdit.app)"
+    echo "rgm \"query\" | ripgrep to BBEdit (--textedit for TextEdit.app)"
     echo "converta filename_stem | Convert MP3 to M4A with ffmpeg"
+    echo "dr | restart Doom Emacs"
+    echo "reload | re-source ~/.bashrc"
+    echo "bdr | bd sync && bd ready"
+    echo "mdlint / mdfix | markdownlint-cli2 (--fix)"
+    echo "gsig | git log -1 --show-signature"
 }
 
 function ip_pls {
@@ -135,20 +145,30 @@ function whats_running_this_tcp_port {
 }
 
 function fuz {
-    fzf --print0 | xargs -0 -o bbedit
-}
-
-function fgm {
-    fzf | xargs -I {} open -a TextEdit {}
+    if [[ "$1" == "--textedit" ]]; then
+        fzf --print0 | xargs -0 open -a TextEdit
+    else
+        fzf --print0 | xargs -0 -o bbedit
+    fi
 }
 
 function rgm {
     local query=${1:?"Query must be specified."}
-    rg --files-with-matches "$query" | fzf | xargs -I {} open -a TextEdit {}
+    if [[ "$2" == "--textedit" ]]; then
+        rg --files-with-matches "$query" | fzf --print0 | xargs -0 open -a TextEdit
+    else
+        rg --files-with-matches "$query" | fzf --print0 | xargs -0 -o bbedit
+    fi
 }
 
 function gpgready {
     echo "gpg ready up" | gpg -er derek@dereknordgren.com | gpg -d
+}
+
+function doom_restart {
+    emacsclient -e '(kill-emacs)' 2>/dev/null
+    sleep 1
+    doom .
 }
 
 function converta {
