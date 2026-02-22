@@ -75,6 +75,12 @@ eval "$(fnm env --use-on-cd --shell bash)"
 # ============================================================
 eval "$(fzf --bash)"
 
+# Use fd for fzf's default file listing
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
+
+# Apply the same command to the CTRL-T shortcut
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # ============================================================
 # AWS COMPLETION
 # ============================================================
