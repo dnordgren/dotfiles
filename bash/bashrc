@@ -51,6 +51,9 @@ export LESS="-Xr"
 # To update: security add-generic-password -U -a "$USER" -s "REDASH_API_KEY" -w "newkeyhere"
 export REDASH_API_KEY=$(security find-generic-password -a "$USER" -s "REDASH_API_KEY" -w 2>/dev/null)
 
+# Query Snowplow Kibana per data-schemas Claude skill
+[ -f ~/.env.kibana ] && source ~/.env.kibana
+
 # ============================================================
 # PROMPT (replaces oh-my-zsh af-magic)
 # ============================================================
@@ -99,6 +102,7 @@ alias doom="/opt/homebrew/bin/emacsclient -nw -a ''"
 alias dr="doom_restart"
 alias g="git"
 alias gsig="git log -1 --show-signature"
+alias glog="git log -5 --oneline"
 alias ls="ls -lha"
 alias mdfix="npx markdownlint-cli2 --fix"
 alias mdlint="npx markdownlint-cli2"
@@ -107,6 +111,11 @@ alias repos="cd ~/bulletfarm/hudl"
 alias t="open -a TextEdit"
 alias tf="terraform"
 alias vault="cd ~/vaults/hudl"
+
+# ============================================================
+# STARTING DIRECTORY
+# ============================================================
+cd ~/vaults/hudl/
 
 # ============================================================
 # FUNCTIONS
@@ -129,6 +138,7 @@ function halp {
     echo "bdr | bd sync && bd ready"
     echo "mdlint / mdfix | markdownlint-cli2 (--fix)"
     echo "gsig | git log -1 --show-signature"
+    echo "glog | git log -5 --oneline"
 }
 
 function ip_pls {
@@ -197,3 +207,7 @@ function ssm {
     local instance_id=${1:?"The instance_id must be specified."}
     aws ssm start-session --target "$instance_id"
 }
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/derek.nordgren/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

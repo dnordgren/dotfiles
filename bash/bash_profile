@@ -2,3 +2,14 @@
 # macOS login shells (including Ghostty's default) source this file.
 # We keep config in ~/.bashrc for portability and source it from here.
 [[ -f ~/.bashrc ]] && source ~/.bashrc
+
+# Kibana credentials for snowplow-query Claude skill.
+# Sourced here (not just ~/.bashrc) so that Claude Code's Bash tool —
+# which spawns non-interactive subshells — inherits credentials from
+# this login shell rather than re-sourcing ~/.bashrc (which has an
+# interactive-only guard at the top).
+[ -f ~/.env.kibana ] && source ~/.env.kibana
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/derek.nordgren/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
