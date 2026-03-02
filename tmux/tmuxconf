@@ -32,9 +32,20 @@ set-window-option -g display-panes-time 1500
 set -g pane-active-border-style bg=default,fg=green
 set -g pane-border-style fg=grey
 
-# Set window notifications
-setw -g monitor-activity on
-set -g visual-activity on
+# Window notifications: bell-based unread detection
+# Claude Code hooks send \a on Stop + PermissionRequest → flags inactive windows
+# Flag clears when you visit the window
+setw -g monitor-activity off
+setw -g monitor-silence 0
+setw -g monitor-bell on
+set -g visual-bell off
+set -g bell-action other      # flag bell in non-current windows only
+
+# Status bar: dot on unread, no color change
+setw -g window-status-format " #I:#W#{?window_bell_flag, ●,} "
+setw -g window-status-current-format " #I:#W "
+setw -g window-status-bell-style "default"
+setw -g window-status-activity-style "default"
 
 # Allow the arrow key to be used immediately after changing windows
 set-option -g repeat-time 0
