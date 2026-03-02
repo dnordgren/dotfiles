@@ -6,42 +6,42 @@ term = xterm-256color
 macos-titlebar-style = native
 copy-on-select = clipboard
 macos-option-as-alt = left
-title = "Gas Town"
 
 # Font
 font-family = Berkeley Mono SemiCondensed
 font-size = 15
 
-# Colors - ported from iTerm2 "USGC-RETICLE-IT" profile
+# Colors - ported from iTerm2 "Berkeley" profile
 # Background/foreground
 background = #000000
-foreground = #009D5F
+foreground = #ffffff
 
 # Cursor
-cursor-color = #858E97
-cursor-text = #FFFFFF
+cursor-color = #ffffff
+cursor-text = #000000
 
 # Selection
-selection-background = #000581
-selection-foreground = #FFC200
+selection-background = #645c54
+selection-foreground = #ebdbb2
 
 # ANSI palette (0-7 normal, 8-15 bright)
-palette = 0=#262626
-palette = 1=#E00000
-palette = 2=#FFC200
-palette = 3=#FFC200
-palette = 4=#723DF9
-palette = 5=#FF208F
-palette = 6=#0079FF
-palette = 7=#FFFFFF
-palette = 8=#494747
-palette = 9=#E00000
-palette = 10=#F4BA00
-palette = 11=#FFC200
-palette = 12=#FF7321
-palette = 13=#FF208F
-palette = 14=#0078FF
-palette = 15=#FEFEFF
+# Bright colors (8-15) are Gruvbox Dark
+palette = 0=#000000
+palette = 1=#ff5701
+palette = 2=#00704f
+palette = 3=#ffc102
+palette = 4=#00429f
+palette = 5=#d00120
+palette = 6=#07e793
+palette = 7=#ffffff
+palette = 8=#928374
+palette = 9=#fb4934
+palette = 10=#b8bb26
+palette = 11=#fabd2f
+palette = 12=#83a598
+palette = 13=#d3869b
+palette = 14=#8ec07c
+palette = 15=#ebdbb2
 
 # App Icon
 # fav: glass, holographic, retro
