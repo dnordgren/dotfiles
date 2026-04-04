@@ -39,6 +39,7 @@
 ;; File associations
 (add-to-list 'auto-mode-alist '("\\.omnijs\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
+(add-to-list 'auto-mode-alist '("~/vaults/.*\\.txt\\'" . org-mode))
 
 ;; Keybindings
 ;; Disable Alt-3 as £ to support hash on British keyboard
