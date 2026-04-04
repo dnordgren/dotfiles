@@ -42,7 +42,8 @@ export PATH="$HOME/.local/bin:$PATH"
 if [[ -n "$SSH_CONNECTION" ]]; then
     export EDITOR='vim'
 else
-    export EDITOR='bbedit --wait'
+    export EDITOR='emacsclient -a ""'
+    export VISUAL='emacsclient -t -a ""'
 fi
 export GPG_TTY=$(tty)
 export LESS="-Xr"
