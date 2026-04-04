@@ -21,6 +21,8 @@
 ;; Theme selection handled by auto-dark (see section 3)
 ;; See full list: https://github.com/doomemacs/themes
 ;; Favorites: doom-sourcerer, doom-nord, doom-homage-white/black, doom-gruvbox, doom-dracula
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" doom-user-dir))
+(setq doom-theme 'doom-dark-jungle)
 
 ;;;; 2. Editor Preferences
 
@@ -49,13 +51,14 @@
 ;;;; 3. UI Enhancements
 
 ;; Auto-dark: dynamically swap theme based on system night/day setting
-(use-package! auto-dark
-  :after doom-ui
-  :config
-  (setq! auto-dark-dark-theme 'doom-homage-black
-         auto-dark-light-theme 'doom-homage-white
-         auto-dark-detection-method 'osascript)  ;; Use AppleScript instead of dark-mode command
-  (auto-dark-mode 1))
+;; (Disabled — always dark mode via doom-theme above)
+;; (use-package! auto-dark
+;;   :after doom-ui
+;;   :config
+;;   (setq! auto-dark-dark-theme 'doom-dark-jungle
+;;          auto-dark-light-theme 'doom-gruvbox-light
+;;          auto-dark-detection-method 'osascript)  ;; Use AppleScript instead of dark-mode command
+;;   (auto-dark-mode 1))
 
 ;;;; 4. Extensions Configuration
 
