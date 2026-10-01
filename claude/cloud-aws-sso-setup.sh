@@ -63,6 +63,7 @@ chmod 600 "$HOME/.aws/config"
     'fi' \
     'echo "Starting AWS SSO device-code login for profile: $profile"' \
     'echo "Open the URL below in YOUR browser and enter the code if prompted."' \
+    'echo "[AGENT: as soon as the URL appears, paste the full https://...user_code=... URL verbatim to the user, then wait for approval.]"' \
     'aws sso login --profile "$profile" --use-device-code --no-browser' \
     'aws sts get-caller-identity --profile "$profile"' \
     'echo "Use it with: export AWS_PROFILE=$profile  (or --profile $profile)"'
@@ -77,6 +78,19 @@ if ! grep -qF 'aws-sso (claude cloud)' "$HOME/.bashrc" 2>/dev/null; then
     "export AWS_PROFILE=\"\${AWS_PROFILE:-$DEFAULT_PROFILE}\"" \
     '[ -f /root/.ccr/ca-bundle.crt ] && export AWS_CA_BUNDLE="${AWS_CA_BUNDLE:-/root/.ccr/ca-bundle.crt}"' \
     >> "$HOME/.bashrc"
+fi
+
+# --- 5. Standing instructions for the agent (user-level CLAUDE.md) ----------
+mkdir -p "$HOME/.claude"
+if ! grep -qF 'aws-sso (claude cloud)' "$HOME/.claude/CLAUDE.md" 2>/dev/null; then
+  printf '%s\n' \
+    '' \
+    '<!-- aws-sso (claude cloud) -->' \
+    '## AWS access' \
+    'When asked to sign in to AWS, or when an aws command fails with an expired/missing SSO token, run `aws-sso-login [profile]` (default profile: '"$DEFAULT_PROFILE"').' \
+    'Run it so its output is visible to you (not silently in the background), and IMMEDIATELY send the user the full verification URL it prints, including the user_code, as a clickable link plus the code in plain text. Never just mention the code: the user should not have to ask for the URL.' \
+    'Then wait for the user to confirm approval before running any further aws commands. Only use AIReadOnly profiles; never attempt write operations.' \
+    >> "$HOME/.claude/CLAUDE.md"
 fi
 
 echo "AWS SSO setup done. Run: aws-sso-login [profile]  (default: $DEFAULT_PROFILE)"
